@@ -3,7 +3,6 @@
 ##### Make sure to run before starting:
 ``` flutter clean ```
 ``` flutter pub get ```
-``` flutter pub upgrade ``` 
 ## To run this application in release, profile or debug mode run the following command:
 ```flutter run --release --dart-define="environment=2" -t lib/main.dart```
 ## To update generated models execute this command:
