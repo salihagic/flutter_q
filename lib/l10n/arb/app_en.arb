@@ -1,0 +1,21 @@
+{
+    "@@locale": "en",
+     
+    "movies": "Movies",
+    "reload": "Reload",
+    "okay": "Okay",
+    "cancel": "Cancel",
+    "there_is_no_data": "There is no data",
+    "an_error_occured_please_try_again": "An error occured, please try again",
+    "there_was_an_error_please_try_again": "There was an error, please try again",
+    "showing_cached_data": "Showing cached data",
+    "there_are_no_popular_movies": "There are no popular movies",
+    "there_are_no_favorites_yet": "There are no favorites yet",
+    "favorites": "Favorites",
+    "description": "Description",
+    "popular": "Popular",
+    "there_was_a_network_error_please_try_again_later": "There was a network error, please try again later",
+    "there_was_a_server_error_please_try_again_later": "There was a server error, please try again later",
+    "there_was_a_validation_error_please_fix_and_try_again": "There was a validation error, please fix and try again",
+    "there_was_an_error": "There was an error"
+}
