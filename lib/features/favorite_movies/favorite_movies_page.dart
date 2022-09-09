@@ -1,4 +1,3 @@
-import 'package:abstract_bloc/abstract_bloc.dart';
 import 'package:flutter_q/_all.dart';
 
 class FavoriteMoviesPage extends StatelessWidget {
@@ -12,24 +11,24 @@ class FavoriteMoviesPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0),
-        child: AbstractListBuilder<FavoriteMoviesBloc, FavoriteMoviesState>(
-          header: Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: Text(
-              context.translations.favorites,
-              style: const TextStyle(color: Color(0xFFE4ECEF), fontSize: 22, fontWeight: FontWeight.w600),
-            ),
-          ),
-          onInit: (context) => context.read<FavoriteMoviesBloc>().add(FavoriteMoviesLoadEvent()),
-          enableRefresh: false,
-          enableLoadMore: false,
-          itemBuilder: (context, favoriteMoviesState, index) {
-            return MovieWidget(movie: favoriteMoviesState.items[index]);
+        child: Consumer(
+          builder: (context, ref, child) {
+            return ref.watch(favoriteMoviesProvider).when(
+                  data: (data) => ListView.builder(
+                    itemCount: data.items.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          MovieWidget(movie: data.items[index]),
+                          const SizedBox(height: 20),
+                        ],
+                      );
+                    },
+                  ),
+                  error: (error, stackTrace) => Container(),
+                  loading: () => const Loader(),
+                );
           },
-          separatorBuilder: (_, __, ___) => const SizedBox(height: 20),
-          noDataBuilder: (_, __, ___) => Center(
-            child: Text(context.translations.there_are_no_favorites_yet),
-          ),
         ),
       ),
     );

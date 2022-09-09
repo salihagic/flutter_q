@@ -20,20 +20,21 @@ class MovieDetailsHeader extends StatelessWidget {
           ),
         ),
         const Gap(20),
-        InkWell(
-          onTap: () => context.read<FavoriteMoviesBloc>().add(FavoriteMoviesToggleEvent(movie: movie)),
-          child: BlocBuilder<FavoriteMoviesBloc, FavoriteMoviesState>(
-            builder: (context, favoriteMoviesState) {
-              bool isSelected = favoriteMoviesState.items.any((x) => x.id == movie.id);
+        // TODO: RIVERPOD
+        // InkWell(
+        //   onTap: () => context.read<FavoriteMoviesBloc>().add(FavoriteMoviesToggleEvent(movie: movie)),
+        //   child: BlocBuilder<FavoriteMoviesBloc, FavoriteMoviesState>(
+        //     builder: (context, favoriteMoviesState) {
+        //       bool isSelected = favoriteMoviesState.items.any((x) => x.id == movie.id);
 
-              return Icon(
-                isSelected ? AppIcons.bookmark_checked : AppIcons.bookmark_empty,
-                color: isSelected ? const Color(0xFFEC9B3E) : const Color(0xFFE4ECEF),
-                size: 18,
-              );
-            },
-          ),
-        ),
+        //       return Icon(
+        //         isSelected ? AppIcons.bookmark_checked : AppIcons.bookmark_empty,
+        //         color: isSelected ? const Color(0xFFEC9B3E) : const Color(0xFFE4ECEF),
+        //         size: 18,
+        //       );
+        //     },
+        //   ),
+        // ),
       ],
     );
   }

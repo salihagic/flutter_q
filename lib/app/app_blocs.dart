@@ -17,7 +17,6 @@ class AppBlocs extends StatelessWidget {
         _<LocalizationBloc>(),
         _<ErrorHandlerBloc>(),
         _<NavigationBloc>(),
-        _<FavoriteMoviesBloc>(),
       ],
       child: child,
     );

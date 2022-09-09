@@ -1,5 +1,4 @@
 import 'package:flutter_q/_all.dart';
-import 'package:hive/hive.dart';
 
 class RepositoriesConfiguration {
   static Future configure() async {
@@ -7,15 +6,6 @@ class RepositoriesConfiguration {
       MoviesRepository(
         restApiClient: services.get<IRestApiClient>(),
       ),
-    );
-
-    Hive.registerAdapter(MovieEntityAdapter());
-
-    final favoritesRepository = FavoritesRepository();
-    await favoritesRepository.init();
-
-    services.registerSingleton<IFavoritesRepository>(
-      favoritesRepository,
     );
   }
 }

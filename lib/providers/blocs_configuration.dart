@@ -32,11 +32,6 @@ class BlocsConfiguration {
         storageRepository: services.get<IStorageRepository>(),
       ),
     );
-    services.registerSingleton(
-      FavoriteMoviesBloc(
-        favoritesRepository: services.get<IFavoritesRepository>(),
-      ),
-    );
   }
 
   static void configureScoped() {

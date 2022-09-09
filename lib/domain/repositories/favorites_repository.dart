@@ -2,6 +2,15 @@ import 'package:abstract_bloc/abstract_bloc.dart';
 import 'package:flutter_q/_all.dart';
 import 'package:hive/hive.dart';
 
+final favoritesRepositoryProvider = FutureProvider<IFavoritesRepository>(
+  (ref) async {
+    final favoritesRepository = FavoritesRepository(ref);
+    await favoritesRepository.init();
+
+    return favoritesRepository;
+  },
+);
+
 abstract class IFavoritesRepository {
   Future init();
   Future<Result<GridResult<Movie>>> get();
@@ -10,9 +19,14 @@ abstract class IFavoritesRepository {
 
 class FavoritesRepository implements IFavoritesRepository {
   late Box<MovieEntity> box;
+  final Ref ref;
+
+  FavoritesRepository(this.ref);
 
   @override
   Future init() async {
+    Hive.registerAdapter(MovieEntityAdapter());
+
     box = await Hive.openBox<MovieEntity>('favorites-box');
   }
 
