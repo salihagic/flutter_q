@@ -1,12 +1,11 @@
 enum AppStep {
   loadGenres,
-  // loadFavorites,
 }
 
 class AppState {
   List<AppStep> steps;
-  double get percentage => (steps.length / AppStep.values.length) * 100;
-  bool get isLoading => percentage < 100;
+  double get percentage => 100;
+  bool get isLoading => false;
 
   AppState({required this.steps});
 

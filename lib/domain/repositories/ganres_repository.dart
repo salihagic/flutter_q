@@ -1,22 +1,24 @@
+import 'dart:async';
+
 import 'package:abstract_bloc/abstract_bloc.dart';
 import 'package:flutter_q/_all.dart';
 
-abstract class IGenresRepository {
-  StreamController<List<Genre>> genres = StreamController<List<Genre>>.broadcast();
+final genresRepositoryProvider = Provider<IGenresRepository>(GenresRepository.new);
 
-  Stream<Result<GridResult<Genre>>> get();
+abstract class IGenresRepository {
+  Future<Result<GridResult<Genre>>> get();
 }
 
 class GenresRepository implements IGenresRepository {
-  final IRestApiClient restApiClient;
-  @override
-  StreamController<List<Genre>> genres = StreamController<List<Genre>>.broadcast();
+  final Ref ref;
 
-  GenresRepository({required this.restApiClient});
+  GenresRepository(this.ref);
 
   @override
-  Stream<Result<GridResult<Genre>>> get() {
-    return restApiClient.getStreamed(
+  Future<Result<GridResult<Genre>>> get() async {
+    final restApiClient = await ref.read(restApiClientProvider.future);
+
+    return restApiClient.get(
       '/3/genre/movie/list',
       parser: (data) {
         final gridResult = GridResult<Genre>(
@@ -26,8 +28,6 @@ class GenresRepository implements IGenresRepository {
               )
               .toList(),
         );
-
-        genres.add(gridResult.items);
 
         return gridResult;
       },

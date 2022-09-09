@@ -15,3 +15,16 @@ class AppSettingsConfiguration {
     }
   }
 }
+
+final appSettingsProvider = Provider<AppSettings>(
+  (ref) {
+    switch (environment) {
+      case Environment.development:
+        return developmentAppSettings;
+      case Environment.staging:
+        return stagingAppSettings;
+      case Environment.production:
+        return productionAppSettings;
+    }
+  },
+);

@@ -5,7 +5,7 @@ Future main(args) async {
   await Startup.configure();
 
   BlocOverrides.runZoned(
-    () => runApp(const App()),
+    () => runApp(const ProviderScope(child: App())),
     blocObserver: AppBlocObserver(),
   );
 }

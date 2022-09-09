@@ -1,7 +1,6 @@
-import 'package:abstract_bloc/abstract_bloc.dart';
 import 'package:flutter_q/_all.dart';
 
-class MovieGenres extends StatelessWidget {
+class MovieGenres extends ConsumerWidget {
   const MovieGenres({
     Key? key,
     required this.movie,
@@ -10,18 +9,22 @@ class MovieGenres extends StatelessWidget {
   final Movie movie;
 
   @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<GenresBloc, GenresState>(
-      builder: (context, genresState) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final genres = ref.watch(genresProvider);
+
+    return genres.when(
+      data: (data) {
         return Wrap(
           children: movie.genreIds
                   ?.map<Widget>(
-                    (genreId) => GenreChip(genre: genresState.items.firstWhere((genre) => genre.id == genreId)),
+                    (genreId) => GenreChip(genre: data.items.firstWhere((genre) => genre.id == genreId)),
                   )
                   .toList() ??
               [],
         );
       },
+      error: (error, stackTrace) => Container(),
+      loading: () => const Loader(),
     );
   }
 }

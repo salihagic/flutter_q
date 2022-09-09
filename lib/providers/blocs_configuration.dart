@@ -8,9 +8,7 @@ class BlocsConfiguration {
 
   static void configureSingletons() {
     services.registerSingleton(
-      AppBloc(
-        genresRepository: services.get<IGenresRepository>(),
-      ),
+      AppBloc(),
     );
     services.registerSingleton(
       ConnectivityBloc(),
@@ -32,11 +30,6 @@ class BlocsConfiguration {
     services.registerSingleton(
       ThemeBloc(
         storageRepository: services.get<IStorageRepository>(),
-      ),
-    );
-    services.registerSingleton(
-      GenresBloc(
-        ganresRepository: services.get<IGenresRepository>(),
       ),
     );
     services.registerSingleton(

@@ -3,11 +3,6 @@ import 'package:hive/hive.dart';
 
 class RepositoriesConfiguration {
   static Future configure() async {
-    services.registerSingleton<IGenresRepository>(
-      GenresRepository(
-        restApiClient: services.get<IRestApiClient>(),
-      ),
-    );
     services.registerSingleton<IMoviesRepository>(
       MoviesRepository(
         restApiClient: services.get<IRestApiClient>(),
