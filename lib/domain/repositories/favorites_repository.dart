@@ -2,14 +2,7 @@ import 'package:abstract_bloc/abstract_bloc.dart';
 import 'package:flutter_q/_all.dart';
 import 'package:hive/hive.dart';
 
-final favoritesRepositoryProvider = FutureProvider<IFavoritesRepository>(
-  (ref) async {
-    final favoritesRepository = FavoritesRepository(ref);
-    await favoritesRepository.init();
-
-    return favoritesRepository;
-  },
-);
+final favoritesRepositoryProvider = Provider<IFavoritesRepository>((_) => throw UnimplementedError());
 
 abstract class IFavoritesRepository {
   Future init();
@@ -19,9 +12,6 @@ abstract class IFavoritesRepository {
 
 class FavoritesRepository implements IFavoritesRepository {
   late Box<MovieEntity> box;
-  final Ref ref;
-
-  FavoritesRepository(this.ref);
 
   @override
   Future init() async {

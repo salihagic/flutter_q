@@ -3,23 +3,17 @@ import 'package:flutter_q/_all.dart';
 
 final favoriteMoviesProvider = StateNotifierProvider<FavoriteMovies, AsyncValue<GridResult<Movie>>>(
   (ref) {
-    return FavoriteMovies(ref: ref);
+    return FavoriteMovies(favoritesRepository: ref.read(favoritesRepositoryProvider));
   },
 );
 
 class FavoriteMovies extends StateNotifier<AsyncValue<GridResult<Movie>>> {
-  final Ref ref;
-  late IFavoritesRepository favoritesRepository;
+  final IFavoritesRepository favoritesRepository;
 
   FavoriteMovies({
-    required this.ref,
+    required this.favoritesRepository,
   }) : super(const AsyncValue.loading()) {
-    _init();
-  }
-
-  Future<void> _init() async {
-    favoritesRepository = await ref.read(favoritesRepositoryProvider.future);
-    await load();
+    load();
   }
 
   Future<void> load() async {

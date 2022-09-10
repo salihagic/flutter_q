@@ -3,21 +3,23 @@ import 'dart:async';
 import 'package:abstract_bloc/abstract_bloc.dart';
 import 'package:flutter_q/_all.dart';
 
-final genresRepositoryProvider = Provider<IGenresRepository>(GenresRepository.new);
+final genresRepositoryProvider = Provider<IGenresRepository>(
+  (ref) => GenresRepository(
+    restApiClient: ref.read(restApiClientProvider),
+  ),
+);
 
 abstract class IGenresRepository {
   Future<Result<GridResult<Genre>>> get();
 }
 
 class GenresRepository implements IGenresRepository {
-  final Ref ref;
+  final IRestApiClient restApiClient;
 
-  GenresRepository(this.ref);
+  GenresRepository({required this.restApiClient});
 
   @override
   Future<Result<GridResult<Genre>>> get() async {
-    final restApiClient = await ref.read(restApiClientProvider.future);
-
     return restApiClient.get(
       '/3/genre/movie/list',
       parser: (data) {

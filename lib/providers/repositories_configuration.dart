@@ -8,4 +8,11 @@ class RepositoriesConfiguration {
       ),
     );
   }
+
+  static Future<IFavoritesRepository> configureFavoritesRepository() async {
+    final favoritesRepository = FavoritesRepository();
+    await favoritesRepository.init();
+
+    return favoritesRepository;
+  }
 }
