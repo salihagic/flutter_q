@@ -1,16 +1,16 @@
 import 'package:abstract_bloc/abstract_bloc.dart';
 import 'package:flutter_q/_all.dart';
 
-class PopularMoviesState extends AbstractListFilterablePaginatedState<PopularMoviesSearchModel, Movie> {
+class PopularMoviesState {
+  final ResultStatus resultStatus;
+  final PopularMoviesSearchModel searchModel;
+  final GridResult<Movie> result;
+
   PopularMoviesState({
-    required ResultStatus resultStatus,
-    required PopularMoviesSearchModel searchModel,
-    required GridResult<Movie> result,
-  }) : super(
-          resultStatus: resultStatus,
-          searchModel: searchModel,
-          result: result,
-        );
+    required this.resultStatus,
+    required this.searchModel,
+    required this.result,
+  });
 
   factory PopularMoviesState.initial() => PopularMoviesState(
         resultStatus: ResultStatus.loading,
@@ -18,7 +18,6 @@ class PopularMoviesState extends AbstractListFilterablePaginatedState<PopularMov
         result: GridResult<Movie>(),
       );
 
-  @override
   PopularMoviesState copyWith({
     ResultStatus? resultStatus,
     PopularMoviesSearchModel? searchModel,

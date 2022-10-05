@@ -15,4 +15,8 @@ class RepositoriesConfiguration {
 
     return favoritesRepository;
   }
+
+  static Future<IMoviesRepository> configureMoviesRepository(IRestApiClient restApiClient) async {
+    return MoviesRepository(restApiClient: restApiClient);
+  }
 }

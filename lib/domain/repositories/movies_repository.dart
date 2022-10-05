@@ -1,6 +1,8 @@
 import 'package:abstract_bloc/abstract_bloc.dart';
 import 'package:flutter_q/_all.dart';
 
+final moviesRepositoryProvider = Provider<IMoviesRepository>((_) => throw UnimplementedError());
+
 abstract class IMoviesRepository {
   Stream<Result<GridResult<Movie>>> getPopular(PopularMoviesSearchModel model);
 }

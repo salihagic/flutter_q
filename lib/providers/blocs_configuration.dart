@@ -3,7 +3,6 @@ import 'package:flutter_q/_all.dart';
 class BlocsConfiguration {
   static void configure() {
     configureSingletons();
-    configureScoped();
   }
 
   static void configureSingletons() {
@@ -30,14 +29,6 @@ class BlocsConfiguration {
     services.registerSingleton(
       ThemeBloc(
         storageRepository: services.get<IStorageRepository>(),
-      ),
-    );
-  }
-
-  static void configureScoped() {
-    services.registerFactory(
-      () => PopularMoviesBloc(
-        moviesRepository: services.get<IMoviesRepository>(),
       ),
     );
   }

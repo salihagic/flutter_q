@@ -11,6 +11,7 @@ Future main(args) async {
   final restApiClient = await ApiClientConfiguration.configure(appSettings);
   await RepositoriesConfiguration.configure();
   final favoritesRepository = await RepositoriesConfiguration.configureFavoritesRepository();
+  final moviesRepository = await RepositoriesConfiguration.configureMoviesRepository(restApiClient);
   BlocsConfiguration.configure();
 
   BlocOverrides.runZoned(
@@ -20,6 +21,7 @@ Future main(args) async {
           appSettingsProvider.overrideWithValue(appSettings),
           restApiClientProvider.overrideWithValue(restApiClient),
           favoritesRepositoryProvider.overrideWithValue(favoritesRepository),
+          moviesRepositoryProvider.overrideWithValue(moviesRepository),
         ],
         child: const App(),
       ),
