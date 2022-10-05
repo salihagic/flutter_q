@@ -27,7 +27,24 @@ class PopularMovies extends StateNotifier<PopularMoviesState> {
 
     await for (final result in moviesRepository.getPopular(state.searchModel)) {
       if (result.hasData) {
-        state = state.copyWith(result: result.data!);
+        if (result is CacheResult) {
+          state = state.copyWith(resultStatus: ResultStatus.loadedCached, result: result.data!);
+        } else {
+          state = state.copyWith(resultStatus: ResultStatus.loaded, result: result.data!);
+        }
+      }
+    }
+  }
+
+  Future<void> loadMore() async {
+    state.searchModel.increment();
+
+    await for (final result in moviesRepository.getPopular(state.searchModel)) {
+      if (result.hasData) {
+        if (result is NetworkResult) {
+          state.result.items.addAll(result.data!.items);
+          state = state.copyWith(resultStatus: ResultStatus.loaded);
+        }
       }
     }
   }

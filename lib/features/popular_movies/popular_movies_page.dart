@@ -56,7 +56,7 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
                     enablePullDown: true,
                     enablePullUp: true,
                     onRefresh: () => popularMoviesController.refresh(),
-                    // onLoading: () => onLoadMore != null ? onLoadMore?.call(context) : _blocInstance(context)?.add(AbstractListLoadMoreEvent()),
+                    onLoading: () => popularMoviesController.loadMore(),
                     child: ListView.separated(
                       itemCount: popularMoviesState.result.items.length,
                       itemBuilder: (_, index) => MovieWidget(movie: popularMoviesState.result.items[index]),
