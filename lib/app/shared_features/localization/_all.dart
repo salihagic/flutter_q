@@ -1,2 +1,2 @@
-export 'bloc/_all.dart';
+export 'riverpod/_all.dart';
 export 'models/_all.dart';

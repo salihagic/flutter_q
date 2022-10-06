@@ -1,4 +1,3 @@
-import 'package:abstract_bloc/abstract_bloc.dart';
 import 'package:flutter_q/_all.dart';
 
 class Home extends StatelessWidget {
@@ -7,8 +6,10 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<NavigationBloc, NavigationState>(
-        builder: (context, navigationState) {
+      body: Consumer(
+        builder: (context, ref, _) {
+          final navigationState = ref.watch(navigationProvider);
+
           switch (navigationState.index) {
             case 0:
               return const PopularMoviesPage();

@@ -1,4 +1,3 @@
-import 'package:abstract_bloc/abstract_bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_q/_all.dart';
 
@@ -13,8 +12,10 @@ class ConnectivityContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: BlocBuilder<ConnectivityBloc, ConnectivityState>(
-        builder: (context, connectivityState) {
+      child: Consumer(
+        builder: (context, ref, _) {
+          final connectivityState = ref.watch(connectivityProvider);
+
           return Column(
             children: [
               if (connectivityState.connectivityResult == ConnectivityResult.none) ...{

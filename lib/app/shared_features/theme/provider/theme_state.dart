@@ -14,6 +14,11 @@ class ThemeState {
     required this.themeMode,
   });
 
+  factory ThemeState.initial() => ThemeState(
+        status: ThemeStateStatus.initializing,
+        themeMode: ThemeMode.light,
+      );
+
   ThemeState copyWith({
     ThemeStateStatus? status,
     ThemeMode? themeMode,

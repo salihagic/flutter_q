@@ -18,6 +18,11 @@ class LocalizationState {
     this.languagePreviouslySelected = false,
   });
 
+  factory LocalizationState.initial() => LocalizationState(
+        status: LocalizationStateStatus.initializing,
+        locale: AppLanguages.values.first.locale,
+      );
+
   LocalizationState copyWith({
     LocalizationStateStatus? status,
     Locale? locale,

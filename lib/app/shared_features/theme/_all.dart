@@ -1,4 +1,4 @@
-export 'bloc/_all.dart';
+export 'provider/_all.dart';
 export 'extensions/_all.dart';
 export 'app_colors.dart';
 export 'app_font_weight.dart';

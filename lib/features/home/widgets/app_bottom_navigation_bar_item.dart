@@ -1,4 +1,3 @@
-import 'package:abstract_bloc/abstract_bloc.dart';
 import 'package:flutter_q/_all.dart';
 
 class AppBottomNavigationBarItem extends StatelessWidget {
@@ -15,13 +14,16 @@ class AppBottomNavigationBarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NavigationBloc, NavigationState>(
-      builder: (context, navigationState) {
+    return Consumer(
+      builder: (context, ref, _) {
+        final navigationController = ref.watch(navigationProvider.notifier);
+        final navigationState = ref.watch(navigationProvider);
+
         final isSelected = navigationState.index == index;
         final color = isSelected ? context.theme.bottomNavigationBarTheme.selectedItemColor : context.theme.bottomNavigationBarTheme.unselectedItemColor;
 
         return InkWell(
-          onTap: () => context.read<NavigationBloc>().add(NavigationChangeIndexEvent(index: index)),
+          onTap: () => navigationController.changeIndex(index: index),
           child: Column(
             children: [
               Container(

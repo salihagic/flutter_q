@@ -43,7 +43,12 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
                   final popularMoviesController = ref.read(popularMoviesProvider.notifier);
                   final popularMoviesState = ref.watch(popularMoviesProvider);
 
-                  _refreshController.complete();
+                  ref.listen(
+                    popularMoviesProvider,
+                    (_, __) {
+                      _refreshController.complete();
+                    },
+                  );
 
                   if (popularMoviesState.result.items.isEmpty) {
                     return Center(

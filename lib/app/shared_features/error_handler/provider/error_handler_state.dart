@@ -16,6 +16,8 @@ class ErrorHandlerState {
     this.exception,
   });
 
+  factory ErrorHandlerState.initial() => ErrorHandlerState(status: ErrorHandlerStateStatus.clean);
+
   ErrorHandlerState copyWith({
     ErrorHandlerStateStatus? status,
     BaseException? exception,

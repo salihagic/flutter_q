@@ -1,7 +1,9 @@
 import 'package:flutter_q/_all.dart';
 
+final storageRepositoryProvider = Provider<IStorageRepository>((ref) => throw UnimplementedError());
+
 class StorageConfiguration {
-  static Future configure() async {
+  static Future<IStorageRepository> configure() async {
     final storageRepository = SecureStorageRepository();
     await storageRepository.init();
 
@@ -13,5 +15,7 @@ class StorageConfiguration {
     }
 
     services.registerSingleton<IStorageRepository>(storageRepository);
+
+    return storageRepository;
   }
 }

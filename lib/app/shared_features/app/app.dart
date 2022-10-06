@@ -1,4 +1,3 @@
-import 'package:abstract_bloc/abstract_bloc.dart';
 import 'package:flutter_q/_all.dart';
 
 final globalNavigatorKey = GlobalKey<NavigatorState>();
@@ -8,10 +7,8 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const AppBlocs(
-      child: AnimatedFadeIn(
-        child: _AppLayoutBuilder(),
-      ),
+    return const AnimatedFadeIn(
+      child: _AppLayoutBuilder(),
     );
   }
 }
@@ -23,8 +20,10 @@ class _AppLayoutBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeBloc, ThemeState>(
-      builder: (context, themeState) {
+    return Consumer(
+      builder: (context, ref, _) {
+        final themeState = ref.watch(themeProvider);
+
         return ResponsiveLayoutBuilder(
           small: (_, __) => _App(theme: AppTheme.small, darkTheme: AppTheme.smallDark, themeMode: themeState.themeMode),
           medium: (_, __) => _App(theme: AppTheme.medium, darkTheme: AppTheme.mediumDark, themeMode: themeState.themeMode),
@@ -49,8 +48,10 @@ class _App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LocalizationBloc, LocalizationState>(
-      builder: (context, localizationState) {
+    return Consumer(
+      builder: (context, ref, _) {
+        final localizationState = ref.watch(localizationProvider);
+
         return NotificationListener<OverscrollIndicatorNotification>(
           onNotification: (overscroll) {
             overscroll.disallowIndicator();
@@ -70,15 +71,21 @@ class _App extends StatelessWidget {
             builder: (context, child) {
               _setStatusBarAndSystemNavigationColors();
 
-              return AbstractConfigurationWidget(
-                child: BlocListener<ErrorHandlerBloc, ErrorHandlerState>(
-                  listener: (context, errorHandlerState) {
-                    if (errorHandlerState.showMessage) {
-                      context.toast.showExceptionMessage(context.translations, errorHandlerState.exception!);
-                    }
-                  },
-                  child: ConnectivityContainer(child: child!),
-                ),
+              return Consumer(
+                builder: (context, ref, _) {
+                  ref.listen(
+                    errorHandlerProvider,
+                    (_, __) {
+                      final errorHandlerState = ref.watch(errorHandlerProvider);
+
+                      if (errorHandlerState.showMessage) {
+                        context.toast.showExceptionMessage(context.translations, errorHandlerState.exception!);
+                      }
+                    },
+                  );
+
+                  return ConnectivityContainer(child: child!);
+                },
               );
             },
             onGenerateRoute: AppRouter.onGenerateRoute,
