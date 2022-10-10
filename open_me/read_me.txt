@@ -1,1 +1,0 @@
-In case you can't build the project you can find the .apk in this folder to install and test it.

@@ -1,6 +1,6 @@
 {
-    "name": "flutter_q",
-    "short_name": "flutter_q",
+    "name": "q_flutter_starter",
+    "short_name": "q_flutter_starter",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

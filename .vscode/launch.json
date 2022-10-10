@@ -2,48 +2,37 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Development",
+            "name": "Flutter Dev",
             "request": "launch",
             "type": "dart",
-            "program": "lib/main.dart",
+            // "preLaunchTask": "CheckCoverage_And_Analyze",
+            "program": "lib/main/main_dev.dart",
             "args": [
-                "--dart-define",
-                "environment=0",
+                "--flavor",
+                "dev"
             ]
         },
         {
-            "name": "Staging",
+            "name": "Flutter Staging",
             "request": "launch",
             "type": "dart",
-            "program": "lib/main.dart",
+            // "preLaunchTask": "CheckCoverage_And_Analyze",
+            "program": "lib/main/main_staging.dart",
             "args": [
-                "--dart-define",
-                "environment=1",
+                "--flavor",
+                "staging"
             ]
         },
         {
-            "name": "Production",
+            "name": "Flutter Prod",
             "request": "launch",
             "type": "dart",
-            "program": "lib/main.dart",
+            // "preLaunchTask": "CheckCoverage_And_Analyze",
+            "program": "lib/main/main_prod.dart",
             "args": [
-                "--dart-define",
-                "environment=2",
+                "--flavor",
+                "prod"
             ]
         },
-        {
-            "name": "Development in Chrome",
-            "request": "launch",
-            "type": "dart",
-            "program": "lib/main.dart",
-            "args": [
-                "-d",
-                "chrome",
-                "--web-port",
-                "8000",
-                "--dart-define",
-                "environment=0",
-            ],
-        }
     ]
 }
