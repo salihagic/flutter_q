@@ -4,11 +4,12 @@ import 'package:my_little_app/common/data/api_client.dart';
 import 'package:my_little_app/common/data/providers.dart';
 import 'package:my_little_app/common/domain/either_failure_or.dart';
 import 'package:my_little_app/common/domain/entities/failure.dart';
-import 'package:my_little_app/features/genres/domain/entities/genre/genre.dart';
+import 'package:my_little_app/features/genres/data/mappers/genre_mapper.dart';
+import 'package:my_little_app/features/genres/domain/entities/genre.dart';
 
 final genresRepositoryProvider = Provider<GenresRepository>(
   (ref) => GenresRepositoryImpl(
-    apiClient: ref.read(apiClientProvider),
+    ref.read(apiClientProvider),
   ),
 );
 
@@ -17,16 +18,20 @@ abstract class GenresRepository {
 }
 
 class GenresRepositoryImpl implements GenresRepository {
-  final ApiClient apiClient;
+  final ApiClient _apiClient;
 
-  GenresRepositoryImpl({required this.apiClient});
+  GenresRepositoryImpl(
+    this._apiClient,
+  );
 
   @override
   EitherFailureOr<List<Genre>> get() async {
     try {
-      final model = await apiClient.getGenres();
+      final model = await _apiClient.getGenres();
 
-      return Right(model.genres);
+      return Right(
+        model.genres.map((x) => mapGenreResponseModelToGenre(x)).toList(),
+      );
     } catch (e) {
       return Left(Failure.generic(error: e));
     }

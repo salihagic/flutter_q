@@ -1,5 +1,6 @@
 //App
 export 'common/_all.dart';
+export 'features/_all.dart';
 
 //Generated
 export 'package:my_little_app/generated/l10n.dart';

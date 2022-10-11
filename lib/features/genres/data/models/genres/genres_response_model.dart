@@ -1,15 +1,32 @@
+import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:my_little_app/features/genres/domain/entities/genre/genre.dart';
+import 'package:my_little_app/features/genres/data/models/genre/genre_response_model.dart';
 
-part 'genres_response_model.freezed.dart';
 part 'genres_response_model.g.dart';
 
-@unfreezed
-class GenresResponseModel with _$GenresResponseModel {
-  factory GenresResponseModel({
-    required List<Genre> genres,
-  }) = _GenresResponseModel;
+@JsonSerializable()
+class GenresResponseModel extends Equatable {
+  final List<GenreResponseModel> genres;
 
-  factory GenresResponseModel.fromJson(Map<String, dynamic> json) =>
-      _$GenresResponseModelFromJson(json);
+  const GenresResponseModel({
+    required this.genres,
+  });
+
+  factory GenresResponseModel.fromJson(Map<String, dynamic> data) =>
+      _$GenresResponseModelFromJson(data);
+
+  GenresResponseModel copyWith({
+    List<GenreResponseModel>? genres,
+  }) {
+    return GenresResponseModel(
+      genres: genres ?? this.genres,
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        genres,
+      ];
+
+  Map<String, dynamic> toJson() => _$GenresResponseModelToJson(this);
 }

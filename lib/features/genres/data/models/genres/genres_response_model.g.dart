@@ -6,16 +6,15 @@ part of 'genres_response_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_GenresResponseModel _$$_GenresResponseModelFromJson(
-        Map<String, dynamic> json) =>
-    _$_GenresResponseModel(
+GenresResponseModel _$GenresResponseModelFromJson(Map<String, dynamic> json) =>
+    GenresResponseModel(
       genres: (json['genres'] as List<dynamic>)
-          .map((e) => Genre.fromJson(e as Map<String, dynamic>))
+          .map((e) => GenreResponseModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$$_GenresResponseModelToJson(
-        _$_GenresResponseModel instance) =>
+Map<String, dynamic> _$GenresResponseModelToJson(
+        GenresResponseModel instance) =>
     <String, dynamic>{
       'genres': instance.genres,
     };

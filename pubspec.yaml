@@ -43,7 +43,6 @@ dev_dependencies:
   retrofit_generator: null
 
 flutter:
-  generate: true
   uses-material-design: true
   fonts:
     - family: AppIcons

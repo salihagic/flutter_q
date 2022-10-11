@@ -22,8 +22,40 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "an_error_occured_please_try_again":
+            MessageLookupByLibrary.simpleMessage(
+                "An error occured, please try again"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "description": MessageLookupByLibrary.simpleMessage("Description"),
+        "favorites": MessageLookupByLibrary.simpleMessage("Favorites"),
+        "movies": MessageLookupByLibrary.simpleMessage("Movies"),
+        "okay": MessageLookupByLibrary.simpleMessage("Okay"),
         "permission_denied": MessageLookupByLibrary.simpleMessage(
             "Permission has been denied, please enable it in device settings"),
+        "popular": MessageLookupByLibrary.simpleMessage("Popular"),
+        "reload": MessageLookupByLibrary.simpleMessage("Reload"),
+        "showing_cached_data":
+            MessageLookupByLibrary.simpleMessage("Showing cached data"),
+        "there_are_no_favorites_yet":
+            MessageLookupByLibrary.simpleMessage("There are no favorites yet"),
+        "there_are_no_popular_movies":
+            MessageLookupByLibrary.simpleMessage("There are no popular movies"),
+        "there_is_no_data":
+            MessageLookupByLibrary.simpleMessage("There is no data"),
+        "there_was_a_network_error_please_try_again_later":
+            MessageLookupByLibrary.simpleMessage(
+                "There was a network error, please try again later"),
+        "there_was_a_server_error_please_try_again_later":
+            MessageLookupByLibrary.simpleMessage(
+                "There was a server error, please try again later"),
+        "there_was_a_validation_error_please_fix_and_try_again":
+            MessageLookupByLibrary.simpleMessage(
+                "There was a validation error, please fix and try again"),
+        "there_was_an_error":
+            MessageLookupByLibrary.simpleMessage("There was an error"),
+        "there_was_an_error_please_try_again":
+            MessageLookupByLibrary.simpleMessage(
+                "There was an error, please try again"),
         "unknown_error_occurred":
             MessageLookupByLibrary.simpleMessage("Unknown error occurred")
       };
