@@ -6,26 +6,26 @@ part 'popular_movies_response_model.g.dart';
 
 @JsonSerializable()
 class PopularMoviesResponseModel extends Equatable {
-  final List<MovieResponseModel> result;
+  final List<MovieResponseModel> results;
 
   const PopularMoviesResponseModel({
-    required this.result,
+    required this.results,
   });
 
   factory PopularMoviesResponseModel.fromJson(Map<String, dynamic> data) =>
       _$PopularMoviesResponseModelFromJson(data);
 
   PopularMoviesResponseModel copyWith({
-    List<MovieResponseModel>? result,
+    List<MovieResponseModel>? results,
   }) {
     return PopularMoviesResponseModel(
-      result: result ?? this.result,
+      results: results ?? this.results,
     );
   }
 
   @override
   List<Object?> get props => [
-        result,
+        results,
       ];
 
   Map<String, dynamic> toJson() => _$PopularMoviesResponseModelToJson(this);

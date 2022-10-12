@@ -7,17 +7,25 @@ part 'movie_response_model.g.dart';
 class MovieResponseModel extends Equatable {
   final int id;
   final bool adult;
+  @JsonKey(name: 'backdrop_path')
   final String backdropPath;
+  @JsonKey(name: 'genre_ids')
   final List<int> genreIds;
+  @JsonKey(name: 'original_language')
   final String originalLanguage;
+  @JsonKey(name: 'original_title')
   final String originalTitle;
   final String overview;
   final double popularity;
+  @JsonKey(name: 'poster_path')
   final String posterPath;
+  @JsonKey(name: 'release_date')
   final String releaseDate;
   final String title;
   final bool video;
+  @JsonKey(name: 'vote_average')
   final double voteAverage;
+  @JsonKey(name: 'vote_count')
   final int voteCount;
 
   const MovieResponseModel({
