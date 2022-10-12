@@ -1,9 +1,6 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter_q/_all.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_q/common/data/providers.dart';
-import 'package:flutter_q/common/domain/either_failure_or.dart';
-import 'package:flutter_q/common/domain/entities/failure.dart';
 import 'package:flutter_q/features/genres/domain/entities/genre.dart';
 
 final genresRepositoryProvider = Provider<GenresRepository>(
