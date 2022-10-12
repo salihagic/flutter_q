@@ -1,5 +1,5 @@
-import 'package:my_little_app/features/favorite_movies/data/models/movie/movie_response_model.dart';
-import 'package:my_little_app/features/favorite_movies/domain/entities/movie.dart';
+import 'package:flutter_q/features/favorite_movies/data/models/movie/movie_response_model.dart';
+import 'package:flutter_q/features/favorite_movies/domain/entities/movie.dart';
 
 List<MovieResponseModel> deserializeMovieResponseModelList(
   List<Map<String, dynamic>> json,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_little_app/common/presentation/app_icons.dart';
+import 'package:flutter_q/common/presentation/app_icons.dart';
 
 class AppBarAppLogo extends StatelessWidget {
   const AppBarAppLogo({

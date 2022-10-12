@@ -1,9 +1,9 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_little_app/common/domain/notifiers/base_state.dart';
-import 'package:my_little_app/common/domain/notifiers/base_state_notifier.dart';
-import 'package:my_little_app/features/genres/data/repositories/genres_repository.dart';
-import 'package:my_little_app/features/genres/domain/entities/genre.dart';
-import 'package:my_little_app/features/genres/domain/notifiers/genres_notifier/genres_state.dart';
+import 'package:flutter_q/common/domain/notifiers/base_state.dart';
+import 'package:flutter_q/common/domain/notifiers/base_state_notifier.dart';
+import 'package:flutter_q/features/genres/data/repositories/genres_repository.dart';
+import 'package:flutter_q/features/genres/domain/entities/genre.dart';
+import 'package:flutter_q/features/genres/domain/notifiers/genres_notifier/genres_state.dart';
 
 final genresStateNotifierProvider = StateNotifierProvider<GenresStateNotifier,
     BaseState<List<Genre>, GenresState>>(

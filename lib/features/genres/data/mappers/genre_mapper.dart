@@ -1,5 +1,5 @@
-import 'package:my_little_app/features/genres/data/models/genre/genre_response_model.dart';
-import 'package:my_little_app/features/genres/domain/entities/genre.dart';
+import 'package:flutter_q/features/genres/data/models/genre/genre_response_model.dart';
+import 'package:flutter_q/features/genres/domain/entities/genre.dart';
 
 List<GenreResponseModel> deserializeGenreResponseModelList(
   List<Map<String, dynamic>> json,
