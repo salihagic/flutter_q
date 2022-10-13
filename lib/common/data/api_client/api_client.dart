@@ -18,4 +18,7 @@ abstract class ApiClient {
   Future<PopularMoviesResponseModel> getPopularMovies(
     @Queries() PopularMoviesSearchModel model,
   );
+
+  @GET('/3/movie/{id}')
+  Future<MovieDetailsResponseModel> getById(@Path() int id);
 }

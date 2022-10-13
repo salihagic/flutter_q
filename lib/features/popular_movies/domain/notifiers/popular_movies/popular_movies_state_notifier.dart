@@ -6,31 +6,31 @@ final popularMoviesStateNotifierProvider = StateNotifierProvider<
     PopularMoviesStateNotifier, BaseState<List<Movie>, PopularMoviesState>>(
   (ref) => PopularMoviesStateNotifier(
     ref,
-    moviesRepository: ref.read(moviesRepositoryProvider),
+    popularMoviesRepositoryProvider: ref.read(popularMoviesRepositoryProvider),
   ),
 );
 
 class PopularMoviesStateNotifier
     extends BaseStateNotifier<List<Movie>, PopularMoviesState> {
-  final MoviesRepository moviesRepository;
+  final PopularMoviesRepository popularMoviesRepositoryProvider;
 
   PopularMoviesStateNotifier(
     super.ref, {
-    required this.moviesRepository,
+    required this.popularMoviesRepositoryProvider,
   }) {
     load(PopularMoviesSearchModel());
   }
 
   Future<void> load(PopularMoviesSearchModel model) async =>
-      execute(moviesRepository.getPopular(model));
+      execute(popularMoviesRepositoryProvider.getPopular(model));
 
   Future<void> refresh(PopularMoviesSearchModel model) async => execute(
-        moviesRepository.getPopular(model),
+        popularMoviesRepositoryProvider.getPopular(model),
         withLoadingState: false,
       );
 
   Future<void> loadMore(PopularMoviesSearchModel model) async => execute(
-        moviesRepository.getPopular(model),
+        popularMoviesRepositoryProvider.getPopular(model),
         withLoadingState: false,
         onDataReceived: (items) {
           final currentItems = state.whenOrNull(data: (items) => items) ?? [];

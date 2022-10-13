@@ -16,7 +16,7 @@ abstract class BaseRouter {
 
   BuildContext? get navigatorContext;
 
-  void pushNamed(String routeName);
+  void pushNamed(String routeName, dynamic data);
 
   void pop();
 
@@ -30,7 +30,8 @@ class BeamerRouter extends BaseRouter {
   });
 
   @override
-  BuildContext? get navigatorContext => (routerDelegate as BeamerDelegate).navigator.context;
+  BuildContext? get navigatorContext =>
+      (routerDelegate as BeamerDelegate).navigator.context;
 
   @override
   void pop() {
@@ -38,8 +39,8 @@ class BeamerRouter extends BaseRouter {
   }
 
   @override
-  void pushNamed(String routeName) {
-    (routerDelegate as BeamerDelegate).beamToNamed(routeName);
+  void pushNamed(String routeName, dynamic data) {
+    (routerDelegate as BeamerDelegate).beamToNamed(routeName, routeState: data);
   }
 
   @override

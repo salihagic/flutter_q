@@ -1,1 +1,1 @@
-export 'movies_repository.dart';
+export 'popular_movies_repository.dart';

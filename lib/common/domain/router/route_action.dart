@@ -11,10 +11,12 @@ abstract class RouteAction {
 }
 
 class PushNamedAction extends RouteAction {
-  PushNamedAction(super.routeName);
+  final dynamic data;
+
+  PushNamedAction(super.routeName, [this.data]);
 
   @override
-  void execute(BaseRouter baseRouter) => baseRouter.pushNamed(routeName);
+  void execute(BaseRouter baseRouter) => baseRouter.pushNamed(routeName, data);
 }
 
 class PopAction extends RouteAction {

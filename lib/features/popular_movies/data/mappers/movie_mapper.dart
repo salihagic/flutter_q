@@ -27,3 +27,22 @@ Movie mapMovieResponseModelToMovie(MovieResponseModel model) {
     voteCount: model.voteCount,
   );
 }
+
+Movie mapMovieDetailsToMovie(MovieDetails movieDetails) {
+  return Movie(
+    id: movieDetails.id,
+    adult: movieDetails.adult,
+    backdropPath: movieDetails.backdropPath,
+    genreIds: movieDetails.genreIds,
+    originalLanguage: movieDetails.originalLanguage,
+    originalTitle: movieDetails.originalTitle,
+    overview: movieDetails.overview,
+    popularity: movieDetails.popularity,
+    posterPath: movieDetails.posterPath,
+    releaseDate: movieDetails.releaseDate,
+    title: movieDetails.title,
+    video: movieDetails.video,
+    voteAverage: movieDetails.voteAverage,
+    voteCount: movieDetails.voteCount,
+  );
+}

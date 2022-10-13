@@ -1,6 +1,5 @@
 import 'package:beamer/beamer.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_q/features/home/presentation/home_page.dart';
+import 'package:flutter_q/_all.dart';
 
 class BeamerLocations extends BeamLocation<BeamState> {
   BeamerLocations(RouteInformation routeInformation) : super(routeInformation);
@@ -8,16 +7,25 @@ class BeamerLocations extends BeamLocation<BeamState> {
   @override
   List<Pattern> get pathPatterns => [
         HomePage.routeName,
+        MovieDetailsPage.routeName,
       ];
 
   @override
   List<BeamPage> buildPages(BuildContext context, BeamState state) {
+    final int? id = state.routeState as int?;
+
     return [
       const BeamPage(
         key: ValueKey('home-page'),
         title: 'Home',
         child: HomePage(),
       ),
+      if (state.uri.path.contains(MovieDetailsPage.routeName) && id.hasValue)
+        BeamPage(
+          key: const ValueKey('movie-details'),
+          title: 'Movie Details',
+          child: MovieDetailsPage(id: id.value),
+        ),
     ];
   }
 }

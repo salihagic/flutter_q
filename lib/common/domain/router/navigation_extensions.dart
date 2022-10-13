@@ -9,8 +9,9 @@ extension NavigationExtensions on WidgetRef {
   void pop() =>
       read(globalNavigationProvider.notifier).update((_) => PopAction());
 
-  void pushNamed(String routeName) => read(globalNavigationProvider.notifier)
-      .update((_) => PushNamedAction(routeName));
+  void pushNamed(String routeName, [dynamic data]) =>
+      read(globalNavigationProvider.notifier)
+          .update((_) => PushNamedAction(routeName, data));
 
   void pushReplacementNamed(String routeName) =>
       read(globalNavigationProvider.notifier)

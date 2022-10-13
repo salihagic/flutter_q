@@ -1,17 +1,13 @@
 // ignore_for_file: always_use_package_imports
 
 import 'package:beamer/beamer.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_q/features/favorite_movies/data/repositories/favorites_repository.dart';
+import 'package:flutter_q/_all.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'common/utils/custom_provider_observer.dart';
 import 'common/domain/providers/base_router_provider.dart';
-import 'common/presentation/base_widget.dart';
-import 'generated/l10n.dart';
 import 'main/app_environment.dart';
 import 'theme/themes.dart' as themes;
 
@@ -61,8 +57,11 @@ class MyApp extends ConsumerWidget {
         routerDelegate: baseRouter.routerDelegate,
         routeInformationParser: baseRouter.routeInformationParser,
         routeInformationProvider: baseRouter.routeInformationProvider,
-        builder: (context, child) =>
-            BaseWidget(child: child ?? const SizedBox()),
+        builder: (context, child) {
+          return ConnectivityContainer(
+            child: BaseWidget(child: child ?? const SizedBox()),
+          );
+        },
       ),
     );
   }

@@ -1,6 +1,6 @@
 import 'package:flutter_q/_all.dart';
 
-class MovieWidget extends StatelessWidget {
+class MovieWidget extends ConsumerWidget {
   final Movie movie;
 
   const MovieWidget({
@@ -9,10 +9,9 @@ class MovieWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
-      // onTap: () =>
-      //     context.navigator.pushNamed(MovieDetailsPage.route, arguments: movie),
+      onTap: () => ref.pushNamed(MovieDetailsPage.routeName, movie.id),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
