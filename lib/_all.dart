@@ -1,6 +1,7 @@
 //App
 export 'common/_all.dart';
 export 'features/_all.dart';
+export 'theme/_all.dart';
 export 'package:flutter_q/common/domain/router/navigation_extensions.dart';
 
 //Generated

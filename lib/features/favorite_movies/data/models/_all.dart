@@ -1,1 +1,1 @@
-export 'movie_database_model/movie_database_model.dart';
+export 'movie_database_model/_all.dart';

@@ -1,2 +1,2 @@
-export 'api_client/api_client.dart';
+export 'api_client/_all.dart';
 export 'models/_all.dart';
