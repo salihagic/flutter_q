@@ -15,7 +15,7 @@ class GenreChip extends StatelessWidget {
       margin: const EdgeInsets.only(right: 5, bottom: 5),
       decoration: BoxDecoration(
         color: const Color(0xFFEC9B3E).withOpacity(0.2),
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: const BorderRadius.all(Radius.circular(4)),
       ),
       child: Text(
         genre.name.value,

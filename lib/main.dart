@@ -6,8 +6,6 @@ import 'package:flutter_q/_all.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
-import 'common/utils/custom_provider_observer.dart';
-import 'common/domain/providers/base_router_provider.dart';
 import 'main/app_environment.dart';
 import 'theme/themes.dart' as themes;
 

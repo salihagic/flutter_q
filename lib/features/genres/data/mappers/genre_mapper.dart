@@ -1,4 +1,4 @@
-import 'package:flutter_q/features/genres/data/models/genre/genre_response_model.dart';
+import 'package:flutter_q/features/genres/data/models/genre_response_model/genre_response_model.dart';
 import 'package:flutter_q/features/genres/domain/entities/genre.dart';
 
 List<GenreResponseModel> deserializeGenreResponseModelList(

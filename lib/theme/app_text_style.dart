@@ -1,5 +1,4 @@
 import 'package:flutter_q/_all.dart';
-import 'package:flutter_q/theme/app_font_weight.dart';
 
 /// App Text Style Definitions
 class AppTextStyle {
