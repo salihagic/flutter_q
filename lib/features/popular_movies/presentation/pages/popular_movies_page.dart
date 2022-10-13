@@ -25,7 +25,12 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
         title: const AppBarAppLogo(),
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0),
+        padding: const EdgeInsets.fromLTRB(
+          20.0,
+          20.0,
+          20.0,
+          0,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

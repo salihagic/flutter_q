@@ -4,3 +4,4 @@ export 'base_loading_indicator.dart';
 export 'base_widget.dart';
 export 'cached_image.dart';
 export 'image_assets.dart';
+export 'loader.dart';

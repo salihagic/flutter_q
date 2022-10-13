@@ -37,7 +37,7 @@ class PopularMoviesStateNotifier
 
           currentItems.addAll(items);
 
-          state = BaseState.data(items);
+          state = BaseState.data(currentItems);
 
           return false;
         },

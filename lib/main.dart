@@ -3,6 +3,8 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_q/features/favorite_movies/data/repositories/favorites_repository.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
@@ -16,8 +18,16 @@ import 'theme/themes.dart' as themes;
 Future<void> mainCommon(AppEnvironment environment) async {
   WidgetsFlutterBinding.ensureInitialized();
   EnvInfo.initialize(environment);
+
+  await Hive.initFlutter();
+  final favoritesRepository = FavoritesRepositoryImpl();
+  await favoritesRepository.init();
+
   void runAppCallback() => runApp(ProviderScope(
         observers: [CustomProviderObserver()],
+        overrides: [
+          favoritesRepositoryProvider.overrideWithValue(favoritesRepository),
+        ],
         child: const MyApp(),
       ));
   if (environment == AppEnvironment.PROD) {

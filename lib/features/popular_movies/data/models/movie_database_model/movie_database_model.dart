@@ -4,62 +4,62 @@ import 'package:hive/hive.dart';
 @HiveType(typeId: 0)
 class MovieDatabaseModel extends HiveObject {
   @HiveField(0)
-  int id;
+  int? id;
 
   @HiveField(1)
-  bool adult;
+  bool? adult;
 
   @HiveField(2)
-  String backdropPath;
+  String? backdropPath;
 
   @HiveField(3)
-  List<int> genreIds;
+  List<int>? genreIds;
 
   @HiveField(4)
-  String originalLanguage;
+  String? originalLanguage;
 
   @HiveField(5)
-  String originalTitle;
+  String? originalTitle;
 
   @HiveField(6)
-  String overview;
+  String? overview;
 
   @HiveField(7)
-  double popularity;
+  double? popularity;
 
   @HiveField(8)
-  String posterPath;
+  String? posterPath;
 
   @HiveField(9)
-  String releaseDate;
+  String? releaseDate;
 
   @HiveField(10)
-  String title;
+  String? title;
 
   @HiveField(11)
-  bool video;
+  bool? video;
 
   @HiveField(12)
-  double voteAverage;
+  double? voteAverage;
 
   @HiveField(13)
-  int voteCount;
+  int? voteCount;
 
   MovieDatabaseModel({
-    required this.id,
-    required this.adult,
-    required this.backdropPath,
-    required this.genreIds,
-    required this.originalLanguage,
-    required this.originalTitle,
-    required this.overview,
-    required this.popularity,
-    required this.posterPath,
-    required this.releaseDate,
-    required this.title,
-    required this.video,
-    required this.voteAverage,
-    required this.voteCount,
+    this.id,
+    this.adult,
+    this.backdropPath,
+    this.genreIds,
+    this.originalLanguage,
+    this.originalTitle,
+    this.overview,
+    this.popularity,
+    this.posterPath,
+    this.releaseDate,
+    this.title,
+    this.video,
+    this.voteAverage,
+    this.voteCount,
   });
 
   factory MovieDatabaseModel.fromMovie(Movie movie) {
