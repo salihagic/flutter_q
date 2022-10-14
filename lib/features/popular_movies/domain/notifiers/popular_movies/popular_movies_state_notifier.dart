@@ -64,12 +64,16 @@ class PopularMoviesStateNotifier
     if (searchModel != null) {
       searchModel.increment();
 
-      execute(
+      await execute(
         popularMoviesRepositoryProvider.getPopular(searchModel),
         withLoadingState: false,
         onDataReceived: (items) {
-          final currentItems = state.whenOrNull(data: (items) => items) ?? [];
-          debugPrint('SearchModel: ${searchModel.toJson()}');
+          final currentItems = List<Movie>.from(
+            state.whenOrNull(
+                  other: (otherStates) => otherStates.items,
+                ) ??
+                [],
+          );
           currentItems.addAll(items);
 
           state = BaseState.other(
@@ -80,9 +84,6 @@ class PopularMoviesStateNotifier
         },
         onFailureOccurred: (failure) {
           searchModel.decrement();
-
-          debugPrint('SearchModel: ${searchModel.toJson()}');
-          debugPrint('FAILURE');
 
           final currentItems = state.whenOrNull(
                 other: (otherStates) => otherStates.items,

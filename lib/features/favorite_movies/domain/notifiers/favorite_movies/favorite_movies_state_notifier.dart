@@ -15,9 +15,7 @@ class FavoriteMoviesStateNotifier
   FavoriteMoviesStateNotifier(
     super.ref, {
     required this.favoritesRepository,
-  }) {
-    load();
-  }
+  });
 
   Future<void> load() async => execute(
         favoritesRepository.get(),

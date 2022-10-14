@@ -1,10 +1,12 @@
 import 'package:flutter_q/_all.dart';
 
-class FavoriteMoviesPage extends StatelessWidget {
+class FavoriteMoviesPage extends ConsumerWidget {
   const FavoriteMoviesPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.read(favoriteMoviesStateNotifierProvider.notifier).load();
+
     return Scaffold(
       appBar: AppBar(
         title: const AppBarAppLogo(),
