@@ -16,37 +16,48 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$PopularMoviesState {
+  List<Movie> get items => throw _privateConstructorUsedError;
+  PopularMoviesSearchModel get searchModel =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() empty,
+    required TResult Function(
+            List<Movie> items, PopularMoviesSearchModel searchModel)
+        data,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? empty,
+    TResult Function(List<Movie> items, PopularMoviesSearchModel searchModel)?
+        data,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? empty,
+    TResult Function(List<Movie> items, PopularMoviesSearchModel searchModel)?
+        data,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Empty value) empty,
+    required TResult Function(_Data value) data,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Empty value)? empty,
+    TResult Function(_Data value)? data,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Empty value)? empty,
+    TResult Function(_Data value)? data,
     required TResult orElse(),
   }) =>
+      throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $PopularMoviesStateCopyWith<PopularMoviesState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -55,6 +66,7 @@ abstract class $PopularMoviesStateCopyWith<$Res> {
   factory $PopularMoviesStateCopyWith(
           PopularMoviesState value, $Res Function(PopularMoviesState) then) =
       _$PopularMoviesStateCopyWithImpl<$Res>;
+  $Res call({List<Movie> items, PopularMoviesSearchModel searchModel});
 }
 
 /// @nodoc
@@ -65,68 +77,130 @@ class _$PopularMoviesStateCopyWithImpl<$Res>
   final PopularMoviesState _value;
   // ignore: unused_field
   final $Res Function(PopularMoviesState) _then;
-}
-
-/// @nodoc
-abstract class _$$_EmptyCopyWith<$Res> {
-  factory _$$_EmptyCopyWith(_$_Empty value, $Res Function(_$_Empty) then) =
-      __$$_EmptyCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$_EmptyCopyWithImpl<$Res>
-    extends _$PopularMoviesStateCopyWithImpl<$Res>
-    implements _$$_EmptyCopyWith<$Res> {
-  __$$_EmptyCopyWithImpl(_$_Empty _value, $Res Function(_$_Empty) _then)
-      : super(_value, (v) => _then(v as _$_Empty));
 
   @override
-  _$_Empty get _value => super._value as _$_Empty;
+  $Res call({
+    Object? items = freezed,
+    Object? searchModel = freezed,
+  }) {
+    return _then(_value.copyWith(
+      items: items == freezed
+          ? _value.items
+          : items // ignore: cast_nullable_to_non_nullable
+              as List<Movie>,
+      searchModel: searchModel == freezed
+          ? _value.searchModel
+          : searchModel // ignore: cast_nullable_to_non_nullable
+              as PopularMoviesSearchModel,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$$_DataCopyWith<$Res>
+    implements $PopularMoviesStateCopyWith<$Res> {
+  factory _$$_DataCopyWith(_$_Data value, $Res Function(_$_Data) then) =
+      __$$_DataCopyWithImpl<$Res>;
+  @override
+  $Res call({List<Movie> items, PopularMoviesSearchModel searchModel});
+}
+
+/// @nodoc
+class __$$_DataCopyWithImpl<$Res> extends _$PopularMoviesStateCopyWithImpl<$Res>
+    implements _$$_DataCopyWith<$Res> {
+  __$$_DataCopyWithImpl(_$_Data _value, $Res Function(_$_Data) _then)
+      : super(_value, (v) => _then(v as _$_Data));
+
+  @override
+  _$_Data get _value => super._value as _$_Data;
+
+  @override
+  $Res call({
+    Object? items = freezed,
+    Object? searchModel = freezed,
+  }) {
+    return _then(_$_Data(
+      items == freezed
+          ? _value._items
+          : items // ignore: cast_nullable_to_non_nullable
+              as List<Movie>,
+      searchModel == freezed
+          ? _value.searchModel
+          : searchModel // ignore: cast_nullable_to_non_nullable
+              as PopularMoviesSearchModel,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$_Empty implements _Empty {
-  const _$_Empty();
+class _$_Data implements _Data {
+  const _$_Data(final List<Movie> items, this.searchModel) : _items = items;
+
+  final List<Movie> _items;
+  @override
+  List<Movie> get items {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_items);
+  }
+
+  @override
+  final PopularMoviesSearchModel searchModel;
 
   @override
   String toString() {
-    return 'PopularMoviesState.empty()';
+    return 'PopularMoviesState.data(items: $items, searchModel: $searchModel)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Empty);
+        (other.runtimeType == runtimeType &&
+            other is _$_Data &&
+            const DeepCollectionEquality().equals(other._items, _items) &&
+            const DeepCollectionEquality()
+                .equals(other.searchModel, searchModel));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_items),
+      const DeepCollectionEquality().hash(searchModel));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_DataCopyWith<_$_Data> get copyWith =>
+      __$$_DataCopyWithImpl<_$_Data>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() empty,
+    required TResult Function(
+            List<Movie> items, PopularMoviesSearchModel searchModel)
+        data,
   }) {
-    return empty();
+    return data(items, searchModel);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? empty,
+    TResult Function(List<Movie> items, PopularMoviesSearchModel searchModel)?
+        data,
   }) {
-    return empty?.call();
+    return data?.call(items, searchModel);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? empty,
+    TResult Function(List<Movie> items, PopularMoviesSearchModel searchModel)?
+        data,
     required TResult orElse(),
   }) {
-    if (empty != null) {
-      return empty();
+    if (data != null) {
+      return data(items, searchModel);
     }
     return orElse();
   }
@@ -134,32 +208,42 @@ class _$_Empty implements _Empty {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Empty value) empty,
+    required TResult Function(_Data value) data,
   }) {
-    return empty(this);
+    return data(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Empty value)? empty,
+    TResult Function(_Data value)? data,
   }) {
-    return empty?.call(this);
+    return data?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Empty value)? empty,
+    TResult Function(_Data value)? data,
     required TResult orElse(),
   }) {
-    if (empty != null) {
-      return empty(this);
+    if (data != null) {
+      return data(this);
     }
     return orElse();
   }
 }
 
-abstract class _Empty implements PopularMoviesState {
-  const factory _Empty() = _$_Empty;
+abstract class _Data implements PopularMoviesState {
+  const factory _Data(
+          final List<Movie> items, final PopularMoviesSearchModel searchModel) =
+      _$_Data;
+
+  @override
+  List<Movie> get items;
+  @override
+  PopularMoviesSearchModel get searchModel;
+  @override
+  @JsonKey(ignore: true)
+  _$$_DataCopyWith<_$_Data> get copyWith => throw _privateConstructorUsedError;
 }

@@ -49,19 +49,16 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
               builder: (context, ref, _) {
                 final popularMoviesState =
                     ref.watch(popularMoviesStateNotifierProvider);
-                final popularMoviesSearchModel =
-                    ref.watch(popularMoviesFiltersStateNotifierProvider);
 
                 ref.listen(
                   popularMoviesStateNotifierProvider,
                   (_, __) => _refreshController.complete(),
                 );
 
-                return popularMoviesState.when(
-                  initial: () => Container(),
+                return popularMoviesState.maybeWhen(
                   loading: () => const BaseLoadingIndicator(),
-                  data: (items) {
-                    if (items.isEmpty) {
+                  other: (state) {
+                    if (state.items.isEmpty) {
                       return Center(
                         child: Text(S.current.there_are_no_popular_movies),
                       );
@@ -73,29 +70,19 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
                         enablePullDown: true,
                         enablePullUp: true,
                         onRefresh: () {
-                          popularMoviesSearchModel.reset();
-                          ref
-                              .read(popularMoviesFiltersStateNotifierProvider
-                                  .notifier)
-                              .update(popularMoviesSearchModel);
                           ref
                               .read(popularMoviesStateNotifierProvider.notifier)
-                              .refresh(popularMoviesSearchModel);
+                              .refresh();
                         },
                         onLoading: () {
-                          popularMoviesSearchModel.increment();
-                          ref
-                              .read(popularMoviesFiltersStateNotifierProvider
-                                  .notifier)
-                              .update(popularMoviesSearchModel);
                           ref
                               .read(popularMoviesStateNotifierProvider.notifier)
-                              .loadMore(popularMoviesSearchModel);
+                              .loadMore();
                         },
                         child: ListView.separated(
-                          itemCount: items.length,
+                          itemCount: state.items.length,
                           itemBuilder: (_, index) => MovieWidget(
-                            movie: items[index],
+                            movie: state.items[index],
                           ),
                           separatorBuilder: (_, __) =>
                               const SizedBox(height: 20),
@@ -103,8 +90,7 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
                       ),
                     );
                   },
-                  other: (_) => Container(),
-                  error: (_) => Container(),
+                  orElse: () => const SizedBox(),
                 );
               },
             ),
