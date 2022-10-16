@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter_q/_all.dart';
 import 'package:hive/hive.dart';
 
@@ -8,7 +7,7 @@ final favoritesRepositoryProvider = Provider<FavoritesRepository>(
 
 abstract class FavoritesRepository {
   Future init();
-  EitherFailureOr<List<Movie>> get();
+  FutureResult<List<Movie>> get();
   Future toggle(Movie movie);
 }
 
@@ -23,13 +22,13 @@ class FavoritesRepositoryImpl implements FavoritesRepository {
   }
 
   @override
-  EitherFailureOr<List<Movie>> get() async {
+  FutureResult<List<Movie>> get() async {
     try {
-      return Right(
+      return Result.data(
         box.values.map((x) => mapMovieDatabaseModelToMovie(x)).toList(),
       );
     } catch (e) {
-      return Left(Failure.generic(error: e));
+      return Result.failure(Failure.generic(error: e));
     }
   }
 

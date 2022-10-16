@@ -16,11 +16,14 @@ Future<void> mainCommon(AppEnvironment environment) async {
   await Hive.initFlutter();
   final favoritesRepository = FavoritesRepositoryImpl();
   await favoritesRepository.init();
+  final cacheHandler = CacheHandlerImpl();
+  await cacheHandler.init();
 
   void runAppCallback() => runApp(ProviderScope(
         observers: [CustomProviderObserver()],
         overrides: [
           favoritesRepositoryProvider.overrideWithValue(favoritesRepository),
+          cacheHandlerProvider.overrideWithValue(cacheHandler),
         ],
         child: const MyApp(),
       ));

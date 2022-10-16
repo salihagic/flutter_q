@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_q/features/_all.dart';
+import 'package:flutter_q/_all.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'api_client.g.dart';
@@ -8,17 +8,14 @@ part 'api_client.g.dart';
 abstract class ApiClient {
   factory ApiClient(Dio dio) = _ApiClient;
 
-  @POST('/token')
-  Future<String> getToken();
-
-  @GET('/3/genre/movie/list')
+  @GET(ApiRoutes.getGenres)
   Future<GenresResponseModel> getGenres();
 
-  @GET('/3/movie/popular')
+  @GET(ApiRoutes.getPopularMovies)
   Future<PopularMoviesResponseModel> getPopularMovies(
     @Queries() PopularMoviesSearchModel model,
   );
 
-  @GET('/3/movie/{id}')
-  Future<MovieDetailsResponseModel> getById(@Path() int id);
+  @GET(ApiRoutes.getMovieById)
+  Future<MovieDetailsResponseModel> getMovieById(@Path() int id);
 }

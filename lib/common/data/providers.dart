@@ -15,6 +15,10 @@ final apiClientProvider = Provider<ApiClient>(
   ),
 );
 
+final cacheHandlerProvider = Provider<CacheHandler>(
+  (ref) => throw UnimplementedError(),
+);
+
 Provider<Dio> _buildDioProviderWith({
   required String baseUrl,
 }) {

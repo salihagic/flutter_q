@@ -19,28 +19,6 @@ class _ApiClient implements ApiClient {
   String? baseUrl;
 
   @override
-  Future<String> getToken() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<String>(_setStreamType<String>(Options(
-      method: 'POST',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          '/token',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data!;
-    return value;
-  }
-
-  @override
   Future<GenresResponseModel> getGenres() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -88,7 +66,7 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<MovieDetailsResponseModel> getById(id) async {
+  Future<MovieDetailsResponseModel> getMovieById(id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};

@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter_q/_all.dart';
 import 'package:flutter_q/common/data/providers.dart';
 
@@ -9,7 +8,7 @@ final movieDetailsRepositoryProvider = Provider<MovieDetailsRepository>(
 );
 
 abstract class MovieDetailsRepository {
-  EitherFailureOr<MovieDetails> getById(int id);
+  FutureResult<MovieDetails> getById(int id);
 }
 
 class MovieDetailsRepositoryImpl implements MovieDetailsRepository {
@@ -18,13 +17,13 @@ class MovieDetailsRepositoryImpl implements MovieDetailsRepository {
   MovieDetailsRepositoryImpl(this._apiClient);
 
   @override
-  EitherFailureOr<MovieDetails> getById(int id) async {
+  FutureResult<MovieDetails> getById(int id) async {
     try {
-      final result = await _apiClient.getById(id);
+      final result = await _apiClient.getMovieById(id);
 
-      return Right(mapMovieDetailsResponseModelToMovieDetails(result));
+      return Result.network(mapMovieDetailsResponseModelToMovieDetails(result));
     } catch (e) {
-      return Left(Failure.generic(error: e));
+      return Result.failure(Failure.generic(error: e));
     }
   }
 }
