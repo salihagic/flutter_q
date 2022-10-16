@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_q/_all.dart';
 import 'package:retrofit/retrofit.dart';
 

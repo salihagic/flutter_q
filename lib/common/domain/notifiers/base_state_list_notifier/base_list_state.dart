@@ -9,7 +9,7 @@ part 'base_list_state.freezed.dart';
 class BaseListState<TSearchModel extends Pagination, TItem>
     with _$BaseListState<TSearchModel, TItem> {
   const factory BaseListState.data(
-    List<TItem> items,
+    GridResult<TItem> data,
     TSearchModel searchModel,
   ) = _Data;
 }

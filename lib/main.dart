@@ -16,14 +16,24 @@ Future<void> mainCommon(AppEnvironment environment) async {
   await Hive.initFlutter();
   final favoritesRepository = FavoritesRepositoryImpl();
   await favoritesRepository.init();
-  final cacheHandler = CacheHandlerImpl();
-  await cacheHandler.init();
+  final IRestApiClient apiClient = RestApiClient(
+    options: RestApiClientOptions(
+      baseUrl: EnvInfo.apiBaseUrl,
+      cacheEnabled: true,
+    ),
+  );
+  await apiClient.init();
+  apiClient.authHandler.authorize(
+    jwt:
+        'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiOGQ3Zjc2OTQ3OTA0YTAxMTI4NmRjNzMyYzU1MjM0ZSIsInN1YiI6IjYwMzM3ODBiMTEzODZjMDAzZjk0ZmM2YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.XYuIrLxvowrkevwKx-KhOiOGZ2Tn-R8tEksXq842kX4',
+    refreshToken: '',
+  );
 
   void runAppCallback() => runApp(ProviderScope(
         observers: [CustomProviderObserver()],
         overrides: [
+          apiClientProvider.overrideWithValue(apiClient),
           favoritesRepositoryProvider.overrideWithValue(favoritesRepository),
-          cacheHandlerProvider.overrideWithValue(cacheHandler),
         ],
         child: const MyApp(),
       ));

@@ -16,21 +16,22 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$BaseListState<TSearchModel extends Pagination, TItem> {
-  List<TItem> get items => throw _privateConstructorUsedError;
+  GridResult<TItem> get data => throw _privateConstructorUsedError;
   TSearchModel get searchModel => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<TItem> items, TSearchModel searchModel) data,
+    required TResult Function(GridResult<TItem> data, TSearchModel searchModel)
+        data,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(List<TItem> items, TSearchModel searchModel)? data,
+    TResult Function(GridResult<TItem> data, TSearchModel searchModel)? data,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<TItem> items, TSearchModel searchModel)? data,
+    TResult Function(GridResult<TItem> data, TSearchModel searchModel)? data,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -63,7 +64,7 @@ abstract class $BaseListStateCopyWith<TSearchModel extends Pagination, TItem,
   factory $BaseListStateCopyWith(BaseListState<TSearchModel, TItem> value,
           $Res Function(BaseListState<TSearchModel, TItem>) then) =
       _$BaseListStateCopyWithImpl<TSearchModel, TItem, $Res>;
-  $Res call({List<TItem> items, TSearchModel searchModel});
+  $Res call({GridResult<TItem> data, TSearchModel searchModel});
 }
 
 /// @nodoc
@@ -77,14 +78,14 @@ class _$BaseListStateCopyWithImpl<TSearchModel extends Pagination, TItem, $Res>
 
   @override
   $Res call({
-    Object? items = freezed,
+    Object? data = freezed,
     Object? searchModel = freezed,
   }) {
     return _then(_value.copyWith(
-      items: items == freezed
-          ? _value.items
-          : items // ignore: cast_nullable_to_non_nullable
-              as List<TItem>,
+      data: data == freezed
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as GridResult<TItem>,
       searchModel: searchModel == freezed
           ? _value.searchModel
           : searchModel // ignore: cast_nullable_to_non_nullable
@@ -100,7 +101,7 @@ abstract class _$$_DataCopyWith<TSearchModel extends Pagination, TItem, $Res>
           $Res Function(_$_Data<TSearchModel, TItem>) then) =
       __$$_DataCopyWithImpl<TSearchModel, TItem, $Res>;
   @override
-  $Res call({List<TItem> items, TSearchModel searchModel});
+  $Res call({GridResult<TItem> data, TSearchModel searchModel});
 }
 
 /// @nodoc
@@ -117,14 +118,14 @@ class __$$_DataCopyWithImpl<TSearchModel extends Pagination, TItem, $Res>
 
   @override
   $Res call({
-    Object? items = freezed,
+    Object? data = freezed,
     Object? searchModel = freezed,
   }) {
     return _then(_$_Data<TSearchModel, TItem>(
-      items == freezed
-          ? _value._items
-          : items // ignore: cast_nullable_to_non_nullable
-              as List<TItem>,
+      data == freezed
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as GridResult<TItem>,
       searchModel == freezed
           ? _value.searchModel
           : searchModel // ignore: cast_nullable_to_non_nullable
@@ -137,21 +138,16 @@ class __$$_DataCopyWithImpl<TSearchModel extends Pagination, TItem, $Res>
 
 class _$_Data<TSearchModel extends Pagination, TItem>
     implements _Data<TSearchModel, TItem> {
-  const _$_Data(final List<TItem> items, this.searchModel) : _items = items;
+  const _$_Data(this.data, this.searchModel);
 
-  final List<TItem> _items;
   @override
-  List<TItem> get items {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_items);
-  }
-
+  final GridResult<TItem> data;
   @override
   final TSearchModel searchModel;
 
   @override
   String toString() {
-    return 'BaseListState<$TSearchModel, $TItem>.data(items: $items, searchModel: $searchModel)';
+    return 'BaseListState<$TSearchModel, $TItem>.data(data: $data, searchModel: $searchModel)';
   }
 
   @override
@@ -159,7 +155,7 @@ class _$_Data<TSearchModel extends Pagination, TItem>
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Data<TSearchModel, TItem> &&
-            const DeepCollectionEquality().equals(other._items, _items) &&
+            const DeepCollectionEquality().equals(other.data, data) &&
             const DeepCollectionEquality()
                 .equals(other.searchModel, searchModel));
   }
@@ -167,7 +163,7 @@ class _$_Data<TSearchModel extends Pagination, TItem>
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(_items),
+      const DeepCollectionEquality().hash(data),
       const DeepCollectionEquality().hash(searchModel));
 
   @JsonKey(ignore: true)
@@ -179,27 +175,28 @@ class _$_Data<TSearchModel extends Pagination, TItem>
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<TItem> items, TSearchModel searchModel) data,
+    required TResult Function(GridResult<TItem> data, TSearchModel searchModel)
+        data,
   }) {
-    return data(items, searchModel);
+    return data(this.data, searchModel);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(List<TItem> items, TSearchModel searchModel)? data,
+    TResult Function(GridResult<TItem> data, TSearchModel searchModel)? data,
   }) {
-    return data?.call(items, searchModel);
+    return data?.call(this.data, searchModel);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<TItem> items, TSearchModel searchModel)? data,
+    TResult Function(GridResult<TItem> data, TSearchModel searchModel)? data,
     required TResult orElse(),
   }) {
     if (data != null) {
-      return data(items, searchModel);
+      return data(this.data, searchModel);
     }
     return orElse();
   }
@@ -235,11 +232,12 @@ class _$_Data<TSearchModel extends Pagination, TItem>
 
 abstract class _Data<TSearchModel extends Pagination, TItem>
     implements BaseListState<TSearchModel, TItem> {
-  const factory _Data(final List<TItem> items, final TSearchModel searchModel) =
+  const factory _Data(
+          final GridResult<TItem> data, final TSearchModel searchModel) =
       _$_Data<TSearchModel, TItem>;
 
   @override
-  List<TItem> get items;
+  GridResult<TItem> get data;
   @override
   TSearchModel get searchModel;
   @override

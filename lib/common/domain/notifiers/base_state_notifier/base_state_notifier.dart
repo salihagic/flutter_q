@@ -1,9 +1,11 @@
 // ignore_for_file: always_use_package_imports, null_check_on_nullable_type_parameter
 
+import 'dart:async';
+
 import 'package:flutter_q/_all.dart';
 
-typedef PreHandleData<T> = bool Function(T data);
-typedef PreHandleFailure = bool Function(Failure failure);
+typedef PreHandleData<T> = FutureOr<bool> Function(T data);
+typedef PreHandleFailure = FutureOr<bool> Function(Failure failure);
 
 abstract class BaseStateNotifier<DataState>
     extends StateNotifier<BaseState<DataState>> {
@@ -22,7 +24,7 @@ abstract class BaseStateNotifier<DataState>
   @protected
   Future execute<TData>(
     Future<Result<TData>> function, {
-    DataState Function(TData data)? mapData,
+    DataState Function(Result<TData> data)? mapData,
     PreHandleData<DataState>? onDataReceived,
     PreHandleFailure? onFailureOccurred,
     bool withLoadingState = true,
@@ -33,19 +35,51 @@ abstract class BaseStateNotifier<DataState>
     final result = await function;
 
     if (result.isError) {
-      _onFailure(
-        result.failure!.copyWith(uniqueKey: UniqueKey()),
+      await _onFailure(
+        Failure.generic(uniqueKey: UniqueKey()),
         onFailureOccurred,
         withLoadingState,
         globalFailure,
       );
     } else {
       if (result.data != null) {
-        _onData(
-          mapData?.call(result.data!) ?? result.data as DataState,
+        await _onData(
+          mapData?.call(result) ?? result.data as DataState,
           onDataReceived,
           withLoadingState,
         );
+      }
+    }
+  }
+
+  @protected
+  Future executeStreamed<TData>(
+    Stream<Result<TData>> function, {
+    DataState Function(Result<TData> data)? mapData,
+    PreHandleData<DataState>? onDataReceived,
+    PreHandleFailure? onFailureOccurred,
+    bool withLoadingState = true,
+    bool globalLoading = false,
+    bool globalFailure = true,
+  }) async {
+    _setLoading(withLoadingState, globalLoading);
+
+    await for (final result in function) {
+      if (result.isError) {
+        await _onFailure(
+          Failure.generic(uniqueKey: UniqueKey()),
+          onFailureOccurred,
+          withLoadingState,
+          globalFailure,
+        );
+      } else {
+        if (result.data != null) {
+          await _onData(
+            mapData?.call(result) ?? result.data as DataState,
+            onDataReceived,
+            withLoadingState,
+          );
+        }
       }
     }
   }
@@ -64,13 +98,14 @@ abstract class BaseStateNotifier<DataState>
   void setGlobalFailure(Failure? failure) =>
       ref.read(globalFailureProvider.notifier).update((state) => failure);
 
-  void _onFailure(
+  Future _onFailure(
     Failure failure,
     PreHandleFailure? onFailureOccurred,
     bool withLoadingState,
     bool globalFailure,
-  ) {
-    final shouldProceedWithFailure = onFailureOccurred?.call(failure) ?? true;
+  ) async {
+    final shouldProceedWithFailure =
+        await onFailureOccurred?.call(failure) ?? true;
     if (!shouldProceedWithFailure || globalFailure) {
       _unsetLoading(withLoadingState);
     }
@@ -81,12 +116,12 @@ abstract class BaseStateNotifier<DataState>
     }
   }
 
-  void _onData(
+  Future _onData(
     DataState data,
     PreHandleData<DataState>? onDataReceived,
     bool withLoadingState,
-  ) {
-    final shouldUpdateState = onDataReceived?.call(data) ?? true;
+  ) async {
+    final shouldUpdateState = await onDataReceived?.call(data) ?? true;
     _unsetLoading(shouldUpdateState ? false : withLoadingState);
     if (shouldUpdateState) {
       state = BaseState.data(data);

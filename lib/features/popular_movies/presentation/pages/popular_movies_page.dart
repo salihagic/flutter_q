@@ -60,9 +60,9 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
                     );
 
                     return popularMoviesState.maybeWhen(
-                      loading: () => const BaseLoadingIndicator(),
+                      loading: () => const Loader(),
                       data: (state) {
-                        if (state.items.isEmpty) {
+                        if (state.data.items.isEmpty) {
                           return Center(
                             child: Text(S.current.there_are_no_popular_movies),
                           );
@@ -86,9 +86,9 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
                                   .loadMore();
                             },
                             child: ListView.separated(
-                              itemCount: state.items.length,
+                              itemCount: state.data.items.length,
                               itemBuilder: (_, index) => MovieWidget(
-                                movie: state.items[index],
+                                movie: state.data.items[index],
                               ),
                               separatorBuilder: (_, __) =>
                                   const SizedBox(height: 20),

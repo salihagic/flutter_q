@@ -9,6 +9,13 @@ extension ListExtensions<T> on List<T> {
 
     return this;
   }
+
+  void removeLastItems(int amount) {
+    final end = length;
+    final start = end - amount;
+
+    removeRange(start >= 0 ? start : 0, end);
+  }
 }
 
 extension IterableExtensions<T> on Iterable<T> {

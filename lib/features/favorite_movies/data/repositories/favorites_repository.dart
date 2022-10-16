@@ -24,11 +24,11 @@ class FavoritesRepositoryImpl implements FavoritesRepository {
   @override
   FutureResult<List<Movie>> get() async {
     try {
-      return Result.data(
-        box.values.map((x) => mapMovieDatabaseModelToMovie(x)).toList(),
+      return Result.success(
+        data: box.values.map((x) => mapMovieDatabaseModelToMovie(x)).toList(),
       );
     } catch (e) {
-      return Result.failure(Failure.generic(error: e));
+      return Result.error();
     }
   }
 
