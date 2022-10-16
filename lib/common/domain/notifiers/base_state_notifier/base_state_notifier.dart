@@ -1,6 +1,5 @@
-// ignore_for_file: always_use_package_imports
+// ignore_for_file: always_use_package_imports, null_check_on_nullable_type_parameter
 
-import 'package:dartz/dartz.dart';
 import 'package:flutter_q/_all.dart';
 
 typedef PreHandleData<T> = bool Function(T data);
@@ -22,7 +21,7 @@ abstract class BaseStateNotifier<DataState>
   /// passed. Similar to [onDataReceived] if always returned false, custom failure handling can be implemented.
   @protected
   Future execute<TData>(
-    Future<Either<Failure, TData>> function, {
+    Future<Result<TData>> function, {
     DataState Function(TData data)? mapData,
     PreHandleData<DataState>? onDataReceived,
     PreHandleFailure? onFailureOccurred,
@@ -32,19 +31,23 @@ abstract class BaseStateNotifier<DataState>
   }) async {
     _setLoading(withLoadingState, globalLoading);
     final result = await function;
-    result.fold(
-      (failure) => _onFailure(
-        failure.copyWith(uniqueKey: UniqueKey()),
+
+    if (result.isError) {
+      _onFailure(
+        result.failure!.copyWith(uniqueKey: UniqueKey()),
         onFailureOccurred,
         withLoadingState,
         globalFailure,
-      ),
-      (data) => _onData(
-        mapData?.call(data) ?? data as DataState,
-        onDataReceived,
-        withLoadingState,
-      ),
-    );
+      );
+    } else {
+      if (result.data != null) {
+        _onData(
+          mapData?.call(result.data!) ?? result.data as DataState,
+          onDataReceived,
+          withLoadingState,
+        );
+      }
+    }
   }
 
   ///Show [BaseLoadingIndicator] above the entire app

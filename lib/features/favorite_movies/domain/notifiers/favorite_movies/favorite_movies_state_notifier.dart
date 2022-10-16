@@ -14,7 +14,9 @@ class FavoriteMoviesStateNotifier extends BaseStateNotifier<List<Movie>> {
   FavoriteMoviesStateNotifier(
     super.ref, {
     required this.favoritesRepository,
-  });
+  }) {
+    load();
+  }
 
   Future<void> load() async => execute(
         favoritesRepository.get(),

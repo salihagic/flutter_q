@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter_q/_all.dart';
 
 abstract class BaseListStateNotifier<TSearchModel extends Pagination, TItem>
@@ -7,7 +6,7 @@ abstract class BaseListStateNotifier<TSearchModel extends Pagination, TItem>
 
   TSearchModel initialSearchModel();
 
-  Future<Either<Failure, List<TItem>>> fetch(TSearchModel searchModel);
+  FutureResult<List<TItem>> fetch(TSearchModel searchModel);
 
   Future<void> load() async {
     final searchModel = initialSearchModel();
