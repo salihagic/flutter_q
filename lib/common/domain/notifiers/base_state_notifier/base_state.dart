@@ -1,8 +1,7 @@
 // ignore_for_file: always_use_package_imports
 
+import 'package:flutter_q/_all.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import '../entities/failure.dart';
 
 part 'base_state.freezed.dart';
 

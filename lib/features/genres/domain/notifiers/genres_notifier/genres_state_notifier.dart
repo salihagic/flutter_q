@@ -1,8 +1,4 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:flutter_q/common/domain/notifiers/base_state.dart';
-import 'package:flutter_q/common/domain/notifiers/base_state_notifier.dart';
-import 'package:flutter_q/features/genres/data/repositories/genres_repository.dart';
-import 'package:flutter_q/features/genres/domain/entities/genre.dart';
+import 'package:flutter_q/_all.dart';
 
 final genresStateNotifierProvider =
     StateNotifierProvider<GenresStateNotifier, BaseState<List<Genre>>>(
