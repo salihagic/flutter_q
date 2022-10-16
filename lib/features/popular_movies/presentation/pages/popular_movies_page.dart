@@ -20,83 +20,91 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const AppBarAppLogo(),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(
-          20.0,
-          20.0,
-          20.0,
-          0,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 20),
-              child: Text(
-                S.current.popular,
-                style: const TextStyle(
-                  color: Color(0xFFE4ECEF),
-                  fontSize: 22,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+    return Consumer(
+      builder: (context, ref, child) {
+        ref.read(popularMoviesStateNotifierProvider.notifier).load();
+
+        return Scaffold(
+          appBar: AppBar(
+            title: const AppBarAppLogo(),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.fromLTRB(
+              20.0,
+              20.0,
+              20.0,
+              0,
             ),
-            Consumer(
-              builder: (context, ref, _) {
-                final popularMoviesState =
-                    ref.watch(popularMoviesStateNotifierProvider);
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: Text(
+                    S.current.popular,
+                    style: const TextStyle(
+                      color: Color(0xFFE4ECEF),
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                Consumer(
+                  builder: (context, ref, _) {
+                    final popularMoviesState =
+                        ref.watch(popularMoviesStateNotifierProvider);
 
-                ref.listen(
-                  popularMoviesStateNotifierProvider,
-                  (_, __) => _refreshController.complete(),
-                );
+                    ref.listen(
+                      popularMoviesStateNotifierProvider,
+                      (_, __) => _refreshController.complete(),
+                    );
 
-                return popularMoviesState.maybeWhen(
-                  loading: () => const BaseLoadingIndicator(),
-                  other: (state) {
-                    if (state.items.isEmpty) {
-                      return Center(
-                        child: Text(S.current.there_are_no_popular_movies),
-                      );
-                    }
+                    return popularMoviesState.maybeWhen(
+                      loading: () => const BaseLoadingIndicator(),
+                      other: (state) {
+                        if (state.items.isEmpty) {
+                          return Center(
+                            child: Text(S.current.there_are_no_popular_movies),
+                          );
+                        }
 
-                    return Expanded(
-                      child: SmartRefresher(
-                        controller: _refreshController,
-                        enablePullDown: true,
-                        enablePullUp: true,
-                        onRefresh: () {
-                          ref
-                              .read(popularMoviesStateNotifierProvider.notifier)
-                              .refresh();
-                        },
-                        onLoading: () {
-                          ref
-                              .read(popularMoviesStateNotifierProvider.notifier)
-                              .loadMore();
-                        },
-                        child: ListView.separated(
-                          itemCount: state.items.length,
-                          itemBuilder: (_, index) => MovieWidget(
-                            movie: state.items[index],
+                        return Expanded(
+                          child: SmartRefresher(
+                            controller: _refreshController,
+                            enablePullDown: true,
+                            enablePullUp: true,
+                            onRefresh: () {
+                              ref
+                                  .read(popularMoviesStateNotifierProvider
+                                      .notifier)
+                                  .refresh();
+                            },
+                            onLoading: () {
+                              ref
+                                  .read(popularMoviesStateNotifierProvider
+                                      .notifier)
+                                  .loadMore();
+                            },
+                            child: ListView.separated(
+                              itemCount: state.items.length,
+                              itemBuilder: (_, index) => MovieWidget(
+                                movie: state.items[index],
+                              ),
+                              separatorBuilder: (_, __) =>
+                                  const SizedBox(height: 20),
+                            ),
                           ),
-                          separatorBuilder: (_, __) =>
-                              const SizedBox(height: 20),
-                        ),
-                      ),
+                        );
+                      },
+                      orElse: () => const SizedBox(),
                     );
                   },
-                  orElse: () => const SizedBox(),
-                );
-              },
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

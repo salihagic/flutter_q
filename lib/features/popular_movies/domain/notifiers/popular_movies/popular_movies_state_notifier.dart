@@ -18,9 +18,7 @@ class PopularMoviesStateNotifier
   PopularMoviesStateNotifier(
     super.ref, {
     required this.popularMoviesRepositoryProvider,
-  }) {
-    load();
-  }
+  });
 
   Future<void> load() async {
     final searchModel = PopularMoviesSearchModel();
