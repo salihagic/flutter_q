@@ -1,5 +1,4 @@
 import 'package:flutter_q/_all.dart';
-import 'package:flutter_q/common/data/providers.dart';
 
 final movieDetailsRepositoryProvider = Provider<MovieDetailsRepository>(
   (ref) => MovieDetailsRepositoryImpl(
