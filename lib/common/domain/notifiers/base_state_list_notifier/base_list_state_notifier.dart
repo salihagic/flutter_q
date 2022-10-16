@@ -5,10 +5,9 @@ abstract class BaseListStateNotifier<TSearchModel extends Pagination, TItem>
     extends BaseStateNotifier<BaseListState<TSearchModel, TItem>> {
   BaseListStateNotifier(super.ref);
 
-  TSearchModel initialSearchModel() => throw UnimplementedError();
+  TSearchModel initialSearchModel();
 
-  Future<Either<Failure, List<TItem>>> fetch(TSearchModel searchModel) async =>
-      throw UnimplementedError();
+  Future<Either<Failure, List<TItem>>> fetch(TSearchModel searchModel);
 
   Future<void> load() async {
     final searchModel = initialSearchModel();
