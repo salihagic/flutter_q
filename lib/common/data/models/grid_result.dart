@@ -52,7 +52,7 @@ class GridResult<TListItem> {
     int? firstRowOnPage,
     int? lastRowOnPage,
     int? hasItems,
-    dynamic? additionalData,
+    dynamic additionalData,
   }) {
     return GridResult<TListItem>(
       items: items ?? this.items,
