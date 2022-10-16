@@ -4,9 +4,9 @@ import 'package:flutter_q/_all.dart';
 
 /// [BaseListStateNotifier] is an abstraction of StateNotifier that implements:
 /// - Easy to use infinite scrolling list mechanism (load, refresh and load more)
-/// - Switch between there operation modes (FetchPolicy):
+/// - Switch between 3 operation modes (FetchPolicy):
 ///   - FetchPolicy.network - load data only from network, works if you implement/override fetch method in the super class of this Notifier eg. Something extends BaseListStateNotifier<PopularMoviesSearchModel, Movie>
-///   - FetchPolicy.cacheAndNetwork - load data both from network and cachd, it first fetches from cache while the network request is awaited. You get two state updates with this approach, be carefull.
+///   - FetchPolicy.cacheAndNetwork - load data both from network and cache, it first fetches from cache while the network request is awaited. You get two state updates with this approach, be carefull.
 ///   - FetchPolicy.networkAndCacheOnError - Tries to load from network, if there is an error, then tries to load from cache if available
 
 abstract class BaseListStateNotifier<TSearchModel extends Pagination, TItem>
@@ -105,38 +105,38 @@ abstract class BaseListStateNotifier<TSearchModel extends Pagination, TItem>
       BaseListState<TSearchModel, TItem> mapData(
         Result<GridResult<TItem>> result,
       ) {
+        final numberOfCachedItemsInState =
+            state.data?.data.numberOfCachedItems ?? 0;
+        final numberOfCachedItemsInResult = result.data?.items.length ?? 0;
+
         if (result is CacheResult) {
           final currentItems = List<TItem>.from(state.data?.data.items ?? []);
           currentItems.addAll(result.data?.items ?? []);
 
-          final newState = BaseListState.data(
+          return BaseListState.data(
             result.data!.copyWith(
-              numberOfCachedItems: state.data?.data.numberOfCachedItems,
+              numberOfCachedItems:
+                  numberOfCachedItemsInState + numberOfCachedItemsInResult,
               items: currentItems,
             ),
             searchModel,
           );
-
-          return newState;
         } else {
           final currentItems = List<TItem>.from(state.data?.data.items ?? []);
 
           if ((state.data?.data.numberOfCachedItems ?? 0) > 0) {
-            currentItems
-                .removeLastItems(state.data?.data.numberOfCachedItems ?? 0);
+            currentItems.removeLastItems(numberOfCachedItemsInState);
           }
 
           currentItems.addAll(result.data?.items ?? []);
 
-          final newState = BaseListState.data(
+          return BaseListState.data(
             result.data!.copyWith(
               numberOfCachedItems: 0,
               items: currentItems,
             ),
             searchModel,
           );
-
-          return newState;
         }
       }
 
