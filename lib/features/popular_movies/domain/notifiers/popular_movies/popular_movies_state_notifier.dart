@@ -5,19 +5,18 @@ final popularMoviesStateNotifierProvider = StateNotifierProvider<
   (ref) {
     return PopularMoviesStateNotifier(
       ref,
-      popularMoviesRepositoryProvider:
-          ref.read(popularMoviesRepositoryProvider),
+      popularMoviesRepository: ref.read(popularMoviesRepositoryProvider),
     );
   },
 );
 
 class PopularMoviesStateNotifier
     extends BaseStateNotifier<List<Movie>, PopularMoviesState> {
-  final PopularMoviesRepository popularMoviesRepositoryProvider;
+  final PopularMoviesRepository popularMoviesRepository;
 
   PopularMoviesStateNotifier(
     super.ref, {
-    required this.popularMoviesRepositoryProvider,
+    required this.popularMoviesRepository,
   });
 
   Future<void> load() async {
@@ -25,7 +24,7 @@ class PopularMoviesStateNotifier
     searchModel.reset();
 
     await execute(
-      popularMoviesRepositoryProvider.getPopular(searchModel),
+      popularMoviesRepository.getPopular(searchModel),
       withLoadingState: false,
       onDataReceived: (items) {
         state = BaseState.other(PopularMoviesState.data(items, searchModel));
@@ -43,7 +42,7 @@ class PopularMoviesStateNotifier
       searchModel.reset();
 
       await execute(
-        popularMoviesRepositoryProvider.getPopular(searchModel),
+        popularMoviesRepository.getPopular(searchModel),
         withLoadingState: false,
         onDataReceived: (items) {
           state = BaseState.other(PopularMoviesState.data(items, searchModel));
@@ -63,7 +62,7 @@ class PopularMoviesStateNotifier
       searchModel.increment();
 
       await execute(
-        popularMoviesRepositoryProvider.getPopular(searchModel),
+        popularMoviesRepository.getPopular(searchModel),
         withLoadingState: false,
         onDataReceived: (items) {
           final currentItems = List<Movie>.from(
