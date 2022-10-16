@@ -6,17 +6,17 @@ final popularMoviesStateNotifierProvider = StateNotifierProvider<
     BaseState<BaseListState<PopularMoviesSearchModel, Movie>>>(
   (ref) => PopularMoviesStateNotifier(
     ref,
-    popularMoviesRepositoryProvider: ref.read(popularMoviesRepositoryProvider),
+    popularMoviesRepository: ref.read(popularMoviesRepositoryProvider),
   ),
 );
 
 class PopularMoviesStateNotifier
     extends BaseListStateNotifier<PopularMoviesSearchModel, Movie> {
-  final PopularMoviesRepository popularMoviesRepositoryProvider;
+  final PopularMoviesRepository popularMoviesRepository;
 
   PopularMoviesStateNotifier(
     super.ref, {
-    required this.popularMoviesRepositoryProvider,
+    required this.popularMoviesRepository,
   });
 
   @override
@@ -26,5 +26,5 @@ class PopularMoviesStateNotifier
   Future<Either<Failure, List<Movie>>> fetch(
     PopularMoviesSearchModel searchModel,
   ) =>
-      popularMoviesRepositoryProvider.getPopular(searchModel);
+      popularMoviesRepository.getPopular(searchModel);
 }
