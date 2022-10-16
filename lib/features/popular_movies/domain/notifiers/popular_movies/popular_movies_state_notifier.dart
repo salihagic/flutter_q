@@ -1,7 +1,7 @@
 import 'package:flutter_q/_all.dart';
 
 final popularMoviesStateNotifierProvider = StateNotifierProvider<
-    PopularMoviesStateNotifier, BaseState<List<Movie>, PopularMoviesState>>(
+    PopularMoviesStateNotifier, BaseState<PopularMoviesState>>(
   (ref) {
     return PopularMoviesStateNotifier(
       ref,
@@ -11,8 +11,7 @@ final popularMoviesStateNotifierProvider = StateNotifierProvider<
   },
 );
 
-class PopularMoviesStateNotifier
-    extends BaseStateNotifier<List<Movie>, PopularMoviesState> {
+class PopularMoviesStateNotifier extends BaseStateNotifier<PopularMoviesState> {
   final PopularMoviesRepository popularMoviesRepositoryProvider;
 
   PopularMoviesStateNotifier(
@@ -22,59 +21,44 @@ class PopularMoviesStateNotifier
 
   Future<void> load() async {
     final searchModel = PopularMoviesSearchModel();
-    searchModel.reset();
 
-    await execute(
+    await execute<List<Movie>>(
       popularMoviesRepositoryProvider.getPopular(searchModel),
+      mapData: (items) => PopularMoviesState.data(items, searchModel),
       withLoadingState: false,
-      onDataReceived: (items) {
-        state = BaseState.other(PopularMoviesState.data(items, searchModel));
-
-        return false;
-      },
     );
   }
 
   Future<void> refresh() async {
-    final searchModel = state.whenOrNull(
-      other: (otherStates) => otherStates.searchModel,
-    );
+    final searchModel = state.data?.searchModel;
+
     if (searchModel != null) {
       searchModel.reset();
 
-      await execute(
+      await execute<List<Movie>>(
         popularMoviesRepositoryProvider.getPopular(searchModel),
         withLoadingState: false,
-        onDataReceived: (items) {
-          state = BaseState.other(PopularMoviesState.data(items, searchModel));
-
-          return false;
-        },
+        mapData: (items) => PopularMoviesState.data(items, searchModel),
       );
     }
   }
 
   Future<void> loadMore() async {
-    final searchModel = state.whenOrNull(
-      other: (otherStates) => otherStates.searchModel,
-    );
+    final searchModel = state.data?.searchModel;
 
     if (searchModel != null) {
       searchModel.increment();
 
-      await execute(
+      await execute<List<Movie>>(
         popularMoviesRepositoryProvider.getPopular(searchModel),
         withLoadingState: false,
-        onDataReceived: (items) {
-          final currentItems = List<Movie>.from(
-            state.whenOrNull(
-                  other: (otherStates) => otherStates.items,
-                ) ??
-                [],
-          );
-          currentItems.addAll(items);
+        mapData: (items) => PopularMoviesState.data(items, searchModel),
+        onDataReceived: (data) {
+          final newItems = data.items;
+          final currentItems = List<Movie>.from(state.data?.items ?? []);
+          currentItems.addAll(newItems);
 
-          state = BaseState.other(
+          state = BaseState.data(
             PopularMoviesState.data(currentItems, searchModel),
           );
 
@@ -83,12 +67,9 @@ class PopularMoviesStateNotifier
         onFailureOccurred: (failure) {
           searchModel.decrement();
 
-          final currentItems = state.whenOrNull(
-                other: (otherStates) => otherStates.items,
-              ) ??
-              [];
+          final currentItems = state.data?.items ?? [];
 
-          state = BaseState.other(
+          state = BaseState.data(
             PopularMoviesState.data(currentItems, searchModel),
           );
 

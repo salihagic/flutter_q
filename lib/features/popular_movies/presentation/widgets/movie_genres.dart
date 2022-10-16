@@ -12,9 +12,7 @@ class MovieGenres extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final genres = ref.watch(genresStateNotifierProvider);
 
-    return genres.when(
-      initial: () => Container(),
-      other: (_) => Container(),
+    return genres.maybeWhen(
       data: (items) {
         return Wrap(
           children: movie.genreIds
@@ -27,8 +25,8 @@ class MovieGenres extends ConsumerWidget {
               [],
         );
       },
-      error: (_) => Container(),
       loading: () => const Loader(),
+      orElse: () => const SizedBox(),
     );
   }
 }

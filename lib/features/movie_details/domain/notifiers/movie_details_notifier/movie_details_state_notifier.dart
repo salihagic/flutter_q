@@ -1,8 +1,7 @@
 import 'package:flutter_q/_all.dart';
 
 final movieDetailsStateNotifierProvider = StateNotifierProvider.autoDispose
-    .family<MovieDetailsStateNotifier,
-        BaseState<MovieDetails, MovieDetailsState>, int>(
+    .family<MovieDetailsStateNotifier, BaseState<MovieDetails>, int>(
   (ref, id) => MovieDetailsStateNotifier(
     ref,
     id: id,
@@ -10,8 +9,7 @@ final movieDetailsStateNotifierProvider = StateNotifierProvider.autoDispose
   ),
 );
 
-class MovieDetailsStateNotifier
-    extends BaseStateNotifier<MovieDetails, MovieDetailsState> {
+class MovieDetailsStateNotifier extends BaseStateNotifier<MovieDetails> {
   final MovieDetailsRepository movieDetailsRepository;
 
   MovieDetailsStateNotifier(

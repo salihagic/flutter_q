@@ -35,23 +35,25 @@ class FavoriteMoviesPage extends ConsumerWidget {
             Expanded(
               child: Consumer(
                 builder: (context, ref, child) {
-                  return ref.watch(favoriteMoviesStateNotifierProvider).when(
-                        initial: () => Container(),
-                        other: (_) => Container(),
-                        data: (items) => ListView.builder(
-                          itemCount: items.length,
-                          itemBuilder: (context, index) {
-                            return Column(
-                              children: [
-                                MovieWidget(movie: items[index]),
-                                const SizedBox(height: 20),
-                              ],
-                            );
-                          },
-                        ),
-                        error: (_) => Container(),
-                        loading: () => const Loader(),
-                      );
+                  return ref
+                          .watch(favoriteMoviesStateNotifierProvider)
+                          .whenOrNull(
+                            initial: () => Container(),
+                            data: (items) => ListView.builder(
+                              itemCount: items.length,
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: [
+                                    MovieWidget(movie: items[index]),
+                                    const SizedBox(height: 20),
+                                  ],
+                                );
+                              },
+                            ),
+                            error: (_) => Container(),
+                            loading: () => const Loader(),
+                          ) ??
+                      const SizedBox();
                 },
               ),
             ),

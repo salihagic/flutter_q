@@ -15,8 +15,8 @@ class MovieDetailsPage extends StatelessWidget {
     return Scaffold(
       body: Consumer(
         builder: (context, ref, child) {
-          return ref.watch(movieDetailsStateNotifierProvider(id)).when(
-                initial: () => Container(),
+          return ref.watch(movieDetailsStateNotifierProvider(id)).maybeWhen(
+                orElse: () => const SizedBox(),
                 loading: () => const Loader(),
                 data: (movieDetails) {
                   final movie = mapMovieDetailsToMovie(movieDetails);
@@ -66,8 +66,6 @@ class MovieDetailsPage extends StatelessWidget {
                     ],
                   );
                 },
-                other: (_) => Container(),
-                error: (_) => Container(),
               );
         },
       ),

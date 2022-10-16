@@ -61,7 +61,7 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
 
                     return popularMoviesState.maybeWhen(
                       loading: () => const BaseLoadingIndicator(),
-                      other: (state) {
+                      data: (state) {
                         if (state.items.isEmpty) {
                           return Center(
                             child: Text(S.current.there_are_no_popular_movies),

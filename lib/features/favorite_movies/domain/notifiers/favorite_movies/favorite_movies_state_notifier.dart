@@ -1,15 +1,14 @@
 import 'package:flutter_q/_all.dart';
 
-final favoriteMoviesStateNotifierProvider = StateNotifierProvider<
-    FavoriteMoviesStateNotifier, BaseState<List<Movie>, FavoriteMoviesState>>(
+final favoriteMoviesStateNotifierProvider =
+    StateNotifierProvider<FavoriteMoviesStateNotifier, BaseState<List<Movie>>>(
   (ref) => FavoriteMoviesStateNotifier(
     ref,
     favoritesRepository: ref.read(favoritesRepositoryProvider),
   ),
 );
 
-class FavoriteMoviesStateNotifier
-    extends BaseStateNotifier<List<Movie>, FavoriteMoviesState> {
+class FavoriteMoviesStateNotifier extends BaseStateNotifier<List<Movie>> {
   final FavoritesRepository favoritesRepository;
 
   FavoriteMoviesStateNotifier(

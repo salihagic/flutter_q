@@ -11,9 +11,7 @@ class FavoriteIcon extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
-      child: ref.watch(favoriteMoviesStateNotifierProvider).when(
-            initial: () => Container(),
-            other: (_) => Container(),
+      child: ref.watch(favoriteMoviesStateNotifierProvider).maybeWhen(
             data: (items) {
               bool isSelected = items.any((x) => x.id == movie.id);
 
@@ -27,8 +25,8 @@ class FavoriteIcon extends ConsumerWidget {
                 size: 18,
               );
             },
-            error: (_) => Container(),
             loading: () => Container(),
+            orElse: () => const SizedBox(),
           ),
       onTap: () =>
           ref.read(favoriteMoviesStateNotifierProvider.notifier).toggle(movie),
