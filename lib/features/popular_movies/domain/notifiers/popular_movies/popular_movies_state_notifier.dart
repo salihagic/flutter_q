@@ -4,13 +4,10 @@ import 'package:flutter_q/_all.dart';
 final popularMoviesStateNotifierProvider = StateNotifierProvider<
     PopularMoviesStateNotifier,
     BaseState<BaseListState<PopularMoviesSearchModel, Movie>>>(
-  (ref) {
-    return PopularMoviesStateNotifier(
-      ref,
-      popularMoviesRepositoryProvider:
-          ref.read(popularMoviesRepositoryProvider),
-    );
-  },
+  (ref) => PopularMoviesStateNotifier(
+    ref,
+    popularMoviesRepositoryProvider: ref.read(popularMoviesRepositoryProvider),
+  ),
 );
 
 class PopularMoviesStateNotifier
