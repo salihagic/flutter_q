@@ -7,17 +7,17 @@ final popularMoviesStateNotifierProvider = StateNotifierProvider<
     BaseState<BaseListState<PopularMoviesSearchModel, Movie>>>(
   (ref) => PopularMoviesStateNotifier(
     ref,
-    popularMoviesRepositoryProvider: ref.read(popularMoviesRepositoryProvider),
+    popularMoviesRepository: ref.read(popularMoviesRepositoryProvider),
   ),
 );
 
 class PopularMoviesStateNotifier
     extends BaseListStateNotifier<PopularMoviesSearchModel, Movie> {
-  final PopularMoviesRepository popularMoviesRepositoryProvider;
+  final PopularMoviesRepository popularMoviesRepository;
 
   PopularMoviesStateNotifier(
     super.ref, {
-    required this.popularMoviesRepositoryProvider,
+    required this.popularMoviesRepository,
     super.fetchPolicy = FetchPolicy.cacheAndNetwork,
   });
 
@@ -32,7 +32,7 @@ class PopularMoviesStateNotifier
   StreamGridResult<Movie> fetchStreamed(
     PopularMoviesSearchModel searchModel,
   ) =>
-      popularMoviesRepositoryProvider.getPopular(searchModel);
+      popularMoviesRepository.getPopular(searchModel);
 
   // Implement this override if the FetchPolicy is network or networkAndCacheOnError, for more info see specific usage for each policy in the BaseListStateNotifier comments
   // @override
@@ -40,7 +40,7 @@ class PopularMoviesStateNotifier
   //   PopularMoviesSearchModel searchModel,
   // ) =>
   //     // getPopular method here needs to have a return type of FutureGridResult<Movie>
-  //     popularMoviesRepositoryProvider.getPopular(searchModel);
+  //     popularMoviesRepository.getPopular(searchModel);
 
   // Implement this override if the FetchPolicy is networkAndCacheOnError, for more info see specific usage for each policy in the BaseListStateNotifier comments
   // @override
@@ -48,5 +48,5 @@ class PopularMoviesStateNotifier
   //   PopularMoviesSearchModel searchModel,
   // ) =>
   //     // getPopular method here needs to have a return type of FutureGridResult<Movie>
-  //     popularMoviesRepositoryProvider.getPopularCached(searchModel);
+  //     popularMoviesRepository.getPopularCached(searchModel);
 }
