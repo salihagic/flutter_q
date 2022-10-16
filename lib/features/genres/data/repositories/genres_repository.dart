@@ -1,34 +1,53 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter_q/_all.dart';
-import 'package:flutter_q/common/data/providers.dart';
 
 final genresRepositoryProvider = Provider<GenresRepository>(
   (ref) => GenresRepositoryImpl(
     ref.read(apiClientProvider),
+    ref.read(cacheHandlerProvider),
   ),
 );
 
 abstract class GenresRepository {
-  EitherFailureOr<List<Genre>> get();
+  FutureResult<List<Genre>> get();
 }
 
 class GenresRepositoryImpl implements GenresRepository {
   final ApiClient _apiClient;
+  final CacheHandler _cacheHandler;
 
   GenresRepositoryImpl(
     this._apiClient,
+    this._cacheHandler,
   );
 
   @override
-  EitherFailureOr<List<Genre>> get() async {
-    try {
-      final model = await _apiClient.getGenres();
+  FutureResult<List<Genre>> get() async {
+    final cacheKey = _cacheHandler.generateKey(ApiRoutes.getGenres);
 
-      return Right(
-        model.genres.map((x) => mapGenreResponseModelToGenre(x)).toList(),
+    try {
+      final result = await _apiClient.getGenres();
+
+      await _cacheHandler.set(
+        cacheKey,
+        result.genres.map((e) => e.toJson()).toList(),
+      );
+
+      return Result.network(
+        result.genres.map((x) => mapGenreResponseModelToGenre(x)).toList(),
       );
     } catch (e) {
-      return Left(Failure.generic(error: e));
+      try {
+        final cacheResult = await _cacheHandler.get(cacheKey);
+
+        return Result.network(
+          cacheResult
+              .map((x) => GenreResponseModel.fromJson(x))
+              .map<Genre>((x) => mapGenreResponseModelToGenre(x))
+              .toList(),
+        );
+      } catch (e) {
+        return Result.failure(Failure.generic(error: e));
+      }
     }
   }
 }
